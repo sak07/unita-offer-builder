@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, Output, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BuilderStateService } from '../../services/builder-state.service';
@@ -17,12 +17,12 @@ export class StepDetailsComponent {
 
   newTagInput = '';
 
-  constructor(public state: BuilderStateService) { }
+  state = inject(BuilderStateService);
 
-  addTag() {
-    if (this.newTagInput.trim()) {
-      this.state.addTag(this.newTagInput.trim());
-      this.newTagInput = '';
+  openTagInput() {
+    const tag = prompt('Enter a new tag:');
+    if (tag && tag.trim()) {
+      this.state.addTag(tag.trim());
     }
   }
 }

@@ -38,7 +38,8 @@
 .suggestion-bar {
     background: #e0f2fe;
     border-radius: 1rem;
-    padding: 1rem 1.5rem;
+    padding: 1rem 2.5rem;
+    /* Increased side padding to match cards-section (2.5rem) */
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -132,7 +133,8 @@
 .offering-card.selected {
     border-color: #f06a6a;
     border-width: 2px;
-    background: #fffafa;
+    background: #fff5f5;
+    box-shadow: 0 0 0 1px #f06a6a;
 }
 
 .suggested-tag {
@@ -147,8 +149,10 @@
     padding: 0.25rem 0.75rem;
     border-radius: 9999px;
     border: 1px solid #fee2e2;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(240, 106, 106, 0.1);
 }
+
+
 
 .card-icon {
     width: 48px;
@@ -180,13 +184,20 @@
 }
 
 .explanation-box {
-    background: #e0f2fe;
+    background: #dbeafe;
+    /* Lighter blue to match screenshot */
     border-radius: 1rem;
-    padding: 1.5rem 2rem;
+    padding: 2rem;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    text-align: center;
+    gap: 1rem;
+    margin-top: 2rem;
     animation: slideUp 0.3s ease;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 @keyframes slideUp {
@@ -202,15 +213,21 @@
 }
 
 .explanation-icon {
-    width: 40px;
-    height: 40px;
-    background: white;
+    width: 48px;
+    height: 48px;
+    /* background: white; Removed white bg to match screenshot if it's transparent, but screenshot looks like it might have one? Actually screenshot icon looks like it's just the icon floating or maybe transparent bg. Let's keep it clean. */
+    background: transparent;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #0ea5e9;
+    color: #0369a1;
     flex-shrink: 0;
+}
+
+.explanation-icon svg {
+    width: 32px;
+    height: 32px;
 }
 
 .explanation-content h4 {

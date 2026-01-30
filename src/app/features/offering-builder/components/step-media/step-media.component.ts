@@ -16,15 +16,17 @@ export class StepMediaComponent implements OnDestroy {
   @Output() next = new EventEmitter<void>();
   @Output() back = new EventEmitter<void>();
 
-  colors = [
-    { name: 'Red', value: '#A93535' },
-    { name: 'Orange', value: '#C13E26' },
-    { name: 'Green', value: '#367E3F' },
-    { name: 'Purple', value: '#A1386B' },
-    { name: 'Grey', value: '#525252' }
-  ];
-
+  galleryImages: (string | null)[] = [null, null];
   private thumbnailObjectUrl: string | null = null;
+  private galleryObjectUrls: (string | null)[] = [null, null];
+
+  colors = [
+    { name: 'Red', value: '#A93535', gradient: 'linear-gradient(135deg, #A93535 0%, #8B2D2D 100%)' },
+    { name: 'Orange', value: '#C13E26', gradient: 'linear-gradient(135deg, #C13E26 0%, #A0331F 100%)' },
+    { name: 'Green', value: '#367E3F', gradient: 'linear-gradient(135deg, #367E3F 0%, #2D6934 100%)' },
+    { name: 'Purple', value: '#A1386B', gradient: 'linear-gradient(135deg, #A1386B 0%, #852E58 100%)' },
+    { name: 'Grey', value: '#525252', gradient: 'linear-gradient(135deg, #525252 0%, #444444 100%)' }
+  ];
 
   constructor(public state: BuilderStateService) { }
 
@@ -36,24 +38,46 @@ export class StepMediaComponent implements OnDestroy {
 
     if (this.thumbnailObjectUrl) {
       URL.revokeObjectURL(this.thumbnailObjectUrl);
-      this.thumbnailObjectUrl = null;
     }
     this.thumbnailObjectUrl = URL.createObjectURL(file);
+    
+    // Update state
     this.state.updateOffering({ thumbnail: this.thumbnailObjectUrl });
     input.value = '';
   }
 
-  updateThumbnail(url: string) {
-    this.state.updateOffering({ thumbnail: url });
+  onGalleryFileChange(event: Event, index: number) {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith('image/')) return;
+
+    // Handle previous URL cleanup if replacing
+    if (this.galleryObjectUrls[index]) {
+        URL.revokeObjectURL(this.galleryObjectUrls[index]!);
+    }
+
+    const url = URL.createObjectURL(file);
+    this.galleryObjectUrls[index] = url;
+    this.galleryImages[index] = url;
+
+    // Filter out nulls for state update
+    const currentGallery = this.galleryImages.filter(img => img !== null) as string[];
+    this.state.updateOffering({ gallery: currentGallery });
+
+    input.value = '';
   }
 
-  setThemeColor(color: string) {
-    this.state.updateOffering({ themeColor: color });
+  setThemeColor(color: string, gradient: string) {
+    this.state.updateOffering({ themeColor: color, themeGradient: gradient });
   }
 
   ngOnDestroy() {
     if (this.thumbnailObjectUrl) {
       URL.revokeObjectURL(this.thumbnailObjectUrl);
     }
+    this.galleryObjectUrls.forEach(url => {
+        if (url) URL.revokeObjectURL(url);
+    });
   }
 }

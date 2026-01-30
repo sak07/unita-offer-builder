@@ -1,337 +1,481 @@
 <div class="step-container">
 
-    <!-- Heading Section -->
-    <div class="heading-section">
-        <div>
-            <h1>Tier & Pricing Breakdown</h1>
-            <p>Configure your offering price and (optional) tiers</p>
-        </div>
-        <div class="preview-badge">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                <path
-                    d="M4 5c-1.103 0-2 .897-2 2v10c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V7c0-1.103-.897-2-2-2H4zm16 12H4V7h16v10zM12 9c-2.757 0-5 2.243-5 5h2c0-1.654 1.346-3 3-3s3 1.346 3 3h2c0-2.757-2.243-5-5-5z">
-                </path>
-            </svg>
-            <span class="ml-2">Preview Card*</span>
-        </div>
+  <!-- Heading Section -->
+  <div class="heading-section">
+    <div>
+      <h1>Tier & Pricing Breakdown</h1>
+      <p>Configure your offering price and (optional) tiers</p>
+    </div>
+    <button class="preview-btn">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+        <path d="M4 5c-1.103 0-2 .897-2 2v10c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V7c0-1.103-.897-2-2-2H4zm16 12H4V7h16v10zM12 9c-2.757 0-5 2.243-5 5h2c0-1.654 1.346-3 3-3s3 1.346 3 3h2c0-2.757-2.243-5-5-5z"></path>
+      </svg>
+      Preview Card<span class="asterisk">*</span>
+    </button>
+  </div>
+
+  <!-- Hint Bar -->
+  <div class="hint-bar">
+    <div class="hint-label">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1zM9 19h6v1H9v-1z"></path>
+      </svg>
+      Hint!
+    </div>
+    <div class="hint-text">
+      If your offering has tiers or variations, they will be added on the next step. These are details shared by all tiers.
+    </div>
+  </div>
+
+  <!-- Mode Selector: Recommendations vs Editor -->
+  <ng-container *ngIf="isShowRecommendations(); else editorView">
+    <!-- Tiers Header -->
+    <div class="tiers-header">
+      <h2 class="tiers-title">Tiers</h2>
+      <div class="offering-type-badge">
+        Selected offering type:
+        <span class="type-value">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <circle cx="6" cy="6" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/>
+          </svg>
+          {{ getOfferingTypeLabel() }} <span class="dropdown-arrow">&#9662;</span>
+        </span>
+      </div>
     </div>
 
-    <!-- Hint Bar -->
-    <div class="hint-bar">
-        <div class="hint-icon">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                <path
-                    d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1zM9 19h6v1H9v-1z">
-                </path>
-            </svg>
+    <div class="recommendation-grid">
+      <!-- AI Recommendation Card -->
+      <div class="recommendation-card">
+        <div class="ai-badge">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+            <path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5L12 2z"></path>
+          </svg>
+          Unita AI
         </div>
-        <div class="hint-text">
-            If your offering has tiers or variations, they will be added on the next step. These are details shared by
-            all tiers.
+        <div class="recommendation-content">
+          <h3>Recommended tier structure for <strong>{{ getOfferingTypeLabel() }}s</strong>:</h3>
+          <div class="structure-preview">
+            <div class="structure-item">Starter</div>
+            <div class="structure-item active">
+              Professional
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="#fbbf24">
+                <path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7-6.3-4.6-6.3 4.6 2.3-7-6-4.6h7.6z"></path>
+              </svg>
+            </div>
+            <div class="structure-item">Enterprise</div>
+          </div>
+          <p class="recommendation-desc">Service packages based on scope, deliverables, and support level.</p>
+          <button (click)="useAiStructure()" class="use-structure-btn">Use This Structure</button>
         </div>
+      </div>
+
+      <!-- Manual Card -->
+      <div class="manual-card">
+        <h3>Build your own:</h3>
+        <button (click)="manualCreation()" class="add-tier-btn">Add your own Tier</button>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #editorView>
+    <!-- Tiers Header -->
+    <div class="tiers-header">
+      <h2 class="tiers-title">Tiers</h2>
+      <div class="offering-type-badge">
+        Selected offering type:
+        <span class="type-value">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <circle cx="6" cy="6" r="2"/><circle cx="12" cy="6" r="2"/><circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/>
+          </svg>
+          {{ getOfferingTypeLabel() }} <span class="dropdown-arrow">&#9662;</span>
+        </span>
+      </div>
     </div>
 
-    <!-- Mode Selector: Recommendations vs Editor -->
-    <ng-container *ngIf="isShowRecommendations(); else editorView">
-        <div class="flex justify-between items-center mb-4">
-            <h2 class="text-xl font-extrabold">Tiers</h2>
-            <div class="text-xs font-bold text-gray-500 flex items-center gap-2">
-                Selected offering type:
-                <span class="text-red-400 flex items-center gap-1">
-                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                        <path d="M16 18l6-6-6-6M8 6l-6 6 6 6"></path>
-                    </svg>
-                    Service ▾
-                </span>
-            </div>
+    <div class="editor-card">
+      <!-- Tier Tabs -->
+      <div class="editor-header">
+        <div class="tier-tabs">
+          <div 
+            *ngFor="let tier of state.offering().tiers; let i = index" 
+            (click)="setActiveTier(i)"
+            class="tier-tab" 
+            [class.active]="activeTierIndex() === i"
+          >
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor" class="drag-icon">
+              <circle cx="5" cy="5" r="1.5"/><circle cx="12" cy="5" r="1.5"/>
+              <circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/>
+            </svg>
+            {{ tier.name || 'Untitled Tier' }}
+            <svg *ngIf="tier.isPopular" viewBox="0 0 24 24" width="14" height="14" fill="#fbbf24">
+              <path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7-6.3-4.6-6.3 4.6 2.3-7-6-4.6h7.6z"></path>
+            </svg>
+          </div>
         </div>
+      </div>
 
-        <div class="recommendation-grid">
-            <div class="recommendation-card">
-                <div class="ai-badge">
-                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                        <path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5L12 2z"></path>
-                    </svg>
-                    Unita AI
-                </div>
-                <div class="mt-2">
-                    <h3 class="text-lg font-bold text-gray-700">Recommended tier structure for <span
-                            class="text-black">Services</span>:</h3>
-                </div>
-                <div class="structure-preview">
-                    <div class="structure-item">Starter</div>
-                    <div class="structure-item active">
-                        Professional
-                        <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor" class="text-red-400">
-                            <path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5L12 2z"></path>
-                        </svg>
-                    </div>
-                    <div class="structure-item">Enterprise</div>
-                </div>
-                <p class="text-xs text-gray-400">Service packages based on scope, deliverables, and support level.</p>
-                <button (click)="useAiStructure()" class="px-8 py-2 bg-[#f06a6a] text-white font-bold rounded-full">Use
-                    This Structure</button>
+      <div class="editor-body">
+        <!-- Left Section: Tier Details -->
+        <div class="editor-left">
+          <div class="field-section">
+            <h4 class="section-title">Tier Details</h4>
+            
+            <div class="input-block">
+              <label>Tier Name</label>
+              <div class="input-wrapper">
+                <input 
+                  [(ngModel)]="activeTier.name"
+                  (ngModelChange)="state.updateTier(activeTier.id, { name: $event })"
+                  placeholder="Professional"
+                />
+                <span class="char-count">{{ activeTier.name?.length || 0 }}/50</span>
+              </div>
             </div>
 
-            <div class="manual-card">
-                <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#e5e7eb" stroke-width="2">
-                    <rect x="3" y="3" width="18" height="18" rx="2" />
-                    <line x1="12" y1="8" x2="12" y2="16" />
-                    <line x1="8" y1="12" x2="16" y2="12" />
+            <div class="input-block">
+              <div class="label-with-toggle">
+                <label>Offering Display Name Overwrite</label>
+                <label class="toggle-switch">
+                  <input 
+                    type="checkbox" 
+                    [checked]="!!activeTier.displayNameOverwrite"
+                    (change)="state.updateTier(activeTier.id, { displayNameOverwrite: activeTier.displayNameOverwrite ? undefined : '' })"
+                  >
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+              <div *ngIf="activeTier.displayNameOverwrite !== undefined" class="input-wrapper">
+                <input 
+                  [(ngModel)]="activeTier.displayNameOverwrite"
+                  (ngModelChange)="state.updateTier(activeTier.id, { displayNameOverwrite: $event })"
+                  placeholder="[Name of offering added on step 2]"
+                  class="disabled-style"
+                />
+                <span class="char-count">{{ activeTier.displayNameOverwrite?.length || 0 }}/85</span>
+              </div>
+            </div>
+
+            <div class="input-block">
+              <label>Supersede Cheaper Tier</label>
+              <div class="select-wrapper">
+                <select 
+                  [(ngModel)]="activeTier.supersedesTierId"
+                  (ngModelChange)="state.updateTier(activeTier.id, { supersedesTierId: $event })"
+                >
+                  <option value="">None</option>
+                  <option 
+                    *ngFor="let t of state.offering().tiers" 
+                    [hidden]="t.id === activeTier.id"
+                    [value]="t.id"
+                  >{{ t.name }}</option>
+                </select>
+                <svg class="select-arrow" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                  <path d="M7 10l5 5 5-5z"/>
                 </svg>
-                <h3>Build your own:</h3>
-                <button (click)="manualCreation()" class="btn-pill-outline">Add your own Tier</button>
+              </div>
             </div>
-        </div>
-    </ng-container>
+          </div>
 
-    <ng-template #editorView>
-        <div class="flex justify-between items-center mb-4">
-            <h2 class="text-xl font-extrabold">Tiers</h2>
-            <div class="text-xs font-bold text-gray-500 flex items-center gap-2">
-                Selected offering type:
-                <span class="text-red-400 flex items-center gap-1">
-                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                        <path d="M16 18l6-6-6-6M8 6l-6 6 6 6"></path>
-                    </svg>
-                    Service ▾
-                </span>
+          <!-- Tier Features -->
+          <div class="field-section">
+            <h4 class="section-title">Tier Details</h4>
+            <div *ngFor="let feat of activeTier.features; let fIdx = index" class="input-block">
+              <div class="input-wrapper">
+                <input 
+                  [ngModel]="feat"
+                  (ngModelChange)="state.updateTierFeature(activeTier.id, fIdx, $event)"
+                  placeholder="Feature description..."
+                />
+                <span class="char-count">{{ feat?.length || 0 }}/50</span>
+              </div>
             </div>
+            <button (click)="state.addTierFeature(activeTier.id)" class="add-bullet-btn">Add Bullet Point</button>
+          </div>
         </div>
 
-        <div class="editor-card">
-            <div class="editor-header">
-                <div class="tier-tabs">
-                    <div *ngFor="let tier of state.offering().tiers; let i = index" (click)="setActiveTier(i)"
-                        class="tier-tab" [class.active]="activeTierIndex() === i">
-                        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" class="opacity-50">
-                            <path d="M5 12h14v2H5z"></path>
+        <!-- Right Section: Tier Pricing -->
+        <div class="editor-right">
+          <div class="field-section">
+            <h4 class="section-title">Tier Pricing</h4>
+            
+            <div class="pricing-info-row">
+              <div class="info-badge">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path>
+                </svg>
+                Pricing type influenced by offering choice
+              </div>
+              <button class="adjust-type-link">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                  <path d="M19.14 12.94c.04-.31.06-.63.06-.94 0-.31-.02-.63-.06-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.04.31-.06.63-.06.94s.02.63.06.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+                </svg>
+                Adjust Offering Type
+              </button>
+            </div>
+
+            <!-- Billing Type Toggle (Only for Service) -->
+            <div *ngIf="state.offering().type === 'Service'" class="input-block">
+              <label>Main Billing Type</label>
+              <div class="billing-toggle">
+                <button 
+                  (click)="state.updateTier(activeTier.id, { billingType: 'Per Project' })"
+                  class="billing-opt" 
+                  [class.active]="activeTier.billingType === 'Per Project'"
+                >Per Project</button>
+                <button 
+                  (click)="state.updateTier(activeTier.id, { billingType: 'Hourly' })"
+                  class="billing-opt" 
+                  [class.active]="activeTier.billingType === 'Hourly'"
+                >Hourly</button>
+                <button 
+                  (click)="state.updateTier(activeTier.id, { billingType: 'Monthly Retainer' })"
+                  class="billing-opt" 
+                  [class.active]="activeTier.billingType === 'Monthly Retainer'"
+                >Monthly Retainer</button>
+              </div>
+            </div>
+
+            <!-- AI Tip for Project-based -->
+            <div *ngIf="state.offering().type === 'Service' && activeTier.billingType === 'Per Project'" class="ai-tip-row">
+              <div class="ai-badge-inline">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                  <path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5L12 2z"></path>
+                </svg>
+                Unita AI
+              </div>
+              <span class="ai-tip-text">For Projects, Custom Quotes are usually recommended.</span>
+            </div>
+
+            <!-- AI Tip for Hourly -->
+            <div *ngIf="state.offering().type === 'Service' && activeTier.billingType === 'Hourly'" class="ai-tip-row">
+              <div class="ai-badge-inline">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                  <path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5L12 2z"></path>
+                </svg>
+                Unita AI
+              </div>
+              <span class="ai-tip-text">For Hourly-based pricing, Price Ranges are usually recommended.</span>
+            </div>
+
+            <!-- Price Section -->
+            <div class="input-block">
+              <div class="label-with-toggle">
+                <label>Price Range</label>
+                <label *ngIf="state.offering().type === 'Service'" class="toggle-switch">
+                  <input type="checkbox" [(ngModel)]="showPriceRange">
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+
+              <!-- Monthly Retainer Layout (From/To with swap) -->
+              <ng-container *ngIf="state.offering().type === 'Service' && activeTier.billingType === 'Monthly Retainer' && showPriceRange()">
+                <div class="retainer-price-section">
+                  <div class="price-row">
+                    <span class="price-label">From</span>
+                    <div class="price-input-group">
+                      <div class="price-input-box">
+                        <span class="currency-label">NZD</span>
+                        <input 
+                          type="number" 
+                          [(ngModel)]="activeTier.price"
+                          (ngModelChange)="state.updateTier(activeTier.id, { price: $event })"
+                          placeholder="1600.00"
+                        >
+                      </div>
+                      <div class="period-select-wrapper">
+                        <select 
+                          [(ngModel)]="activeTier.pricePeriod"
+                          (ngModelChange)="state.updateTier(activeTier.id, { pricePeriod: $event })"
+                        >
+                          <option value="Month">Month</option>
+                          <option value="Year">Year</option>
+                        </select>
+                        <svg class="select-arrow" viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                          <path d="M7 10l5 5 5-5z"/>
                         </svg>
-                        {{ tier.name || 'Untitled Tier' }}
-                        <svg *ngIf="tier.isPopular" viewBox="0 0 24 24" width="12" height="12" fill="white">
-                            <path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5L12 2z"></path>
-                        </svg>
+                      </div>
                     </div>
-                </div>
-                <button (click)="state.addTier(); setActiveTier(state.offering().tiers.length - 1)"
-                    class="w-8 h-8 rounded-full border-2 border-dashed border-gray-300 flex items-center justify-center text-gray-400">+</button>
-            </div>
-
-            <div class="editor-body">
-                <!-- Left Section: Details -->
-                <div class="editor-left">
-                    <div class="field-group">
-                        <h4 class="text-sm font-extrabold uppercase tracking-widest text-gray-400">Tier Details</h4>
-                        <div class="input-block">
-                            <label>Tier Name</label>
-                            <input [(ngModel)]="activeTier.name"
-                                (ngModelChange)="state.updateTier(activeTier.id, { name: $event })"
-                                placeholder="Professional" />
-                            <span class="char-count">{{ activeTier.name.length }}/30</span>
-                        </div>
-                        <div class="input-block">
-                            <label class="flex justify-between">
-                                Offering Display Name Overwrite
-                                <div class="switch">
-                                    <input type="checkbox" [checked]="!!activeTier.displayNameOverwrite"
-                                        (change)="state.updateTier(activeTier.id, { displayNameOverwrite: activeTier.displayNameOverwrite ? undefined : '' })">
-                                    <span class="slider"></span>
-                                </div>
-                            </label>
-                            <input *ngIf="activeTier.displayNameOverwrite !== undefined"
-                                [(ngModel)]="activeTier.displayNameOverwrite"
-                                (ngModelChange)="state.updateTier(activeTier.id, { displayNameOverwrite: $event })"
-                                placeholder="[Name of offering added on step 2]" />
-                            <span *ngIf="activeTier.displayNameOverwrite !== undefined" class="char-count">{{
-                                activeTier.displayNameOverwrite?.length || 0 }}/35</span>
-                        </div>
-                        <div class="input-block">
-                            <label>Supersede Cheaper Tier</label>
-                            <select [(ngModel)]="activeTier.supersedesTierId"
-                                (ngModelChange)="state.updateTier(activeTier.id, { supersedesTierId: $event })">
-                                <option value="">None</option>
-                                <option *ngFor="let t of state.offering().tiers" [hidden]="t.id === activeTier.id"
-                                    [value]="t.id">{{ t.name }}</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="field-group">
-                        <h4 class="text-sm font-extrabold uppercase tracking-widest text-gray-400">Tier Details</h4>
-                        <div *ngFor="let feat of activeTier.features; let fIdx = index" class="input-block">
-                            <input [ngModel]="feat"
-                                (ngModelChange)="state.updateTierFeature(activeTier.id, fIdx, $event)"
-                                placeholder="Feature description..." />
-                            <span class="char-count">{{ feat.length }}/50</span>
-                        </div>
-                        <button (click)="state.addTierFeature(activeTier.id)" class="btn-pill-outline">Add Bullet
-                            Point</button>
-                    </div>
-                </div>
-
-                <!-- Right Section: Pricing -->
-                <div class="editor-right">
-                    <div class="field-group">
-                        <h4 class="text-sm font-extrabold uppercase tracking-widest text-gray-400">Tier Pricing</h4>
-                        <div class="info-tip flex items-center gap-2">
-                            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                                <path
-                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z">
-                                </path>
-                            </svg>
-                            Pricing type influenced by offering choice
-                            <span class="ml-auto text-blue-600 cursor-pointer">Adjust Offering Type</span>
-                        </div>
-
-                        <!-- Billing Type Toggle (Only for Service) -->
-                        <div *ngIf="state.offering().type === 'Service'" class="input-block">
-                            <label>Main Billing Type</label>
-                            <div class="billing-toggle">
-                                <div (click)="state.updateTier(activeTier.id, { billingType: 'Per Project' })"
-                                    class="billing-opt" [class.active]="activeTier.billingType === 'Per Project'">Per
-                                    Project</div>
-                                <div (click)="state.updateTier(activeTier.id, { billingType: 'Hourly' })"
-                                    class="billing-opt" [class.active]="activeTier.billingType === 'Hourly'">Hourly
-                                </div>
-                                <div (click)="state.updateTier(activeTier.id, { billingType: 'Monthly Retainer' })"
-                                    class="billing-opt" [class.active]="activeTier.billingType === 'Monthly Retainer'">
-                                    Monthly Retainer</div>
-                            </div>
-                        </div>
-
-                        <div class="input-block">
-                            <label class="flex justify-between">
-                                Price
-                                <div *ngIf="state.offering().type === 'Service'" class="switch">
-                                    <input type="checkbox" [(ngModel)]="showPriceRange">
-                                    <span class="slider"></span>
-                                </div>
-                            </label>
-
-                            <div class="price-range-container">
-                                <div class="price-input-box">
-                                    <span class="currency-label">NZD</span>
-                                    <input type="number" [(ngModel)]="activeTier.price"
-                                        (ngModelChange)="state.updateTier(activeTier.id, { price: $event })">
-
-                                    <!-- Dynamic Unit/Period -->
-                                    <span
-                                        *ngIf="activeTier.billingType === 'Hourly' && state.offering().type === 'Service'"
-                                        class="text-[10px] font-bold text-gray-400 mr-2">/ hr</span>
-                                    <span
-                                        *ngIf="state.offering().type === 'Subscription' || (state.offering().type === 'Product' && state.offering().productType === 'Digital')"
-                                        class="text-[10px] font-bold text-gray-400 mr-2 px-3 border-l border-gray-100 h-full flex items-center bg-gray-50">/
-                                        month</span>
-
-                                    <select
-                                        *ngIf="activeTier.billingType === 'Monthly Retainer' && state.offering().type === 'Service'"
-                                        class="period-select" [(ngModel)]="activeTier.pricePeriod"
-                                        (ngModelChange)="state.updateTier(activeTier.id, { pricePeriod: $event })">
-                                        <option value="Month">Month</option>
-                                        <option value="Year">Year</option>
-                                    </select>
-                                </div>
-                                <ng-container *ngIf="showPriceRange() && state.offering().type === 'Service'">
-                                    <div class="range-line"></div>
-                                    <div class="price-input-box">
-                                        <span class="currency-label">NZD</span>
-                                        <input type="number" [(ngModel)]="activeTier.priceMax"
-                                            (ngModelChange)="state.updateTier(activeTier.id, { priceMax: $event })">
-                                        <span *ngIf="activeTier.billingType === 'Hourly'"
-                                            class="text-[10px] font-bold text-gray-400 mr-2">/ hr</span>
-                                        <select *ngIf="activeTier.billingType === 'Monthly Retainer'"
-                                            class="period-select" [(ngModel)]="activeTier.pricePeriod"
-                                            (ngModelChange)="state.updateTier(activeTier.id, { pricePeriod: $event })">
-                                            <option value="Month">Month</option>
-                                            <option value="Year">Year</option>
-                                        </select>
-                                    </div>
-                                </ng-container>
-                            </div>
-                        </div>
-
-                        <!-- Yearly Discount Section (For Subscriptions/Digital Products) -->
-                        <div *ngIf="state.offering().type === 'Subscription' || (state.offering().type === 'Product' && state.offering().productType === 'Digital')"
-                            class="input-block mt-4">
-                            <label class="flex justify-between items-center mb-2">
-                                Enable Yearly Discount
-                                <div class="switch">
-                                    <input type="checkbox" [checked]="activeTier.hasYearlyDiscount"
-                                        (change)="onDiscountToggle($event)">
-                                    <span class="slider"></span>
-                                </div>
-                            </label>
-
-                            <div *ngIf="activeTier.hasYearlyDiscount"
-                                class="flex items-center gap-4 bg-gray-50 p-3 rounded-xl border border-gray-100">
-                                <div class="w-1/3">
-                                    <span class="text-[10px] font-bold text-gray-400 block mb-1">Discount:</span>
-                                    <select class="w-full !py-1 !px-2 rounded-lg border-gray-200"
-                                        [(ngModel)]="activeTier.yearlyDiscountPercentage"
-                                        (ngModelChange)="state.updateTier(activeTier.id, { yearlyDiscountPercentage: $event })">
-                                        <option [value]="5">5%</option>
-                                        <option [value]="10">10%</option>
-                                        <option [value]="15">15%</option>
-                                        <option [value]="20">20%</option>
-                                    </select>
-                                </div>
-                                <div class="flex-1">
-                                    <span class="text-[10px] font-bold text-gray-400 block mb-1">User Pays:</span>
-                                    <div class="text-xs font-bold text-gray-800">
-                                        <span class="line-through text-gray-400 mr-2">{{ yearlyOriginalPrice |
-                                            number:'1.2-2' }}</span>
-                                        <span class="text-black">{{ yearlyDiscountedPrice | number:'1.2-2' }}</span>
-                                        <span class="text-gray-500 font-normal ml-1">per Year</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="field-group">
-                        <div class="ai-badge !bg-teal-700 !opacity-90">
-                            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                                <path d="M12 2l1.5 5.5L19 9l-5.5 1.5L12 16l-1.5-5.5L5 9l5.5-1.5L12 2z"></path>
-                            </svg>
-                            Unita AI
-                        </div>
-                        <p class="text-[10px] text-gray-500 font-medium">For {{ state.offering().type }}, tiered
-                            structures
-                            usually convert 35% better.</p>
-
-                        <div class="input-block">
-                            <label class="flex justify-between">
-                                Request Quote Only
-                                <div class="switch">
-                                    <input type="checkbox" [(ngModel)]="activeTier.isQuoteOnly"
-                                        (ngModelChange)="state.updateTier(activeTier.id, { isQuoteOnly: $event })">
-                                    <span class="slider"></span>
-                                </div>
-                            </label>
-                            <p class="text-[10px] text-gray-400">Hide price, show "Request Quote only"</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="editor-footer">
-                <div class="toggle-group">
-                    <div class="switch">
-                        <input type="checkbox" [(ngModel)]="activeTier.isPopular"
-                            (ngModelChange)="state.updateTier(activeTier.id, { isPopular: $event })">
-                        <span class="slider"></span>
-                    </div>
-                    Mark as Popular Choice
-                </div>
-                <div (click)="deleteActiveTier()" class="delete-btn">
-                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                        </path>
+                  </div>
+                  <div class="swap-icon">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="#9ca3af">
+                      <path d="M16 17.01V10h-2v7.01h-3L15 21l4-3.99h-3zM9 3L5 6.99h3V14h2V6.99h3L9 3z"/>
                     </svg>
-                    Delete Tier
+                  </div>
+                  <div class="price-row">
+                    <span class="price-label">To</span>
+                    <div class="price-input-group">
+                      <div class="price-input-box">
+                        <span class="currency-label">NZD</span>
+                        <input 
+                          type="number" 
+                          [(ngModel)]="activeTier.priceMax"
+                          (ngModelChange)="state.updateTier(activeTier.id, { priceMax: $event })"
+                          placeholder="2400.00"
+                        >
+                      </div>
+                      <div class="period-select-wrapper">
+                        <select 
+                          [(ngModel)]="activeTier.pricePeriod"
+                          (ngModelChange)="state.updateTier(activeTier.id, { pricePeriod: $event })"
+                        >
+                          <option value="Month">Month</option>
+                          <option value="Year">Year</option>
+                        </select>
+                        <svg class="select-arrow" viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                          <path d="M7 10l5 5 5-5z"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-            </div>
-        </div>
-    </ng-template>
+              </ng-container>
 
+              <!-- Hourly / Per Project with Range -->
+              <ng-container *ngIf="state.offering().type === 'Service' && activeTier.billingType !== 'Monthly Retainer'">
+                <div class="price-range-row">
+                  <div class="price-input-box">
+                    <span class="currency-label">NZD</span>
+                    <input 
+                      type="number" 
+                      [(ngModel)]="activeTier.price"
+                      (ngModelChange)="state.updateTier(activeTier.id, { price: $event })"
+                      [placeholder]="activeTier.billingType === 'Hourly' ? '25 / hr' : '550.00'"
+                    >
+                    <span *ngIf="activeTier.billingType === 'Hourly'" class="unit-suffix">/ hr</span>
+                  </div>
+                  <ng-container *ngIf="showPriceRange()">
+                    <span class="range-separator">—</span>
+                    <div class="price-input-box">
+                      <span class="currency-label">NZD</span>
+                      <input 
+                        type="number" 
+                        [(ngModel)]="activeTier.priceMax"
+                        (ngModelChange)="state.updateTier(activeTier.id, { priceMax: $event })"
+                        [placeholder]="activeTier.billingType === 'Hourly' ? '55 / hr' : '880.00'"
+                      >
+                      <span *ngIf="activeTier.billingType === 'Hourly'" class="unit-suffix">/ hr</span>
+                    </div>
+                  </ng-container>
+                </div>
+              </ng-container>
+
+              <!-- Product Offering: Single Price -->
+              <ng-container *ngIf="state.offering().type === 'Product'">
+                <div class="price-range-row">
+                  <div class="price-input-box single">
+                    <span class="currency-label">NZD</span>
+                    <input 
+                      type="number" 
+                      [(ngModel)]="activeTier.price"
+                      (ngModelChange)="state.updateTier(activeTier.id, { price: $event })"
+                      placeholder="550.00"
+                    >
+                  </div>
+                </div>
+              </ng-container>
+
+              <!-- Subscription Offering: Price with /month -->
+              <ng-container *ngIf="state.offering().type === 'Subscription'">
+                <div class="price-range-row">
+                  <div class="price-input-box with-period">
+                    <span class="currency-label">NZD</span>
+                    <input 
+                      type="number" 
+                      [(ngModel)]="activeTier.price"
+                      (ngModelChange)="state.updateTier(activeTier.id, { price: $event })"
+                      placeholder="129.99"
+                    >
+                    <span class="period-suffix">/ month</span>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+
+            <!-- Yearly Discount Section (For Subscriptions) -->
+            <div *ngIf="state.offering().type === 'Subscription'" class="input-block">
+              <div class="label-with-toggle">
+                <label>Enable Yearly Discount</label>
+                <label class="toggle-switch">
+                  <input 
+                    type="checkbox" 
+                    [checked]="activeTier.hasYearlyDiscount"
+                    (change)="onDiscountToggle($event)"
+                  >
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+
+              <div *ngIf="activeTier.hasYearlyDiscount" class="yearly-discount-box">
+                <div class="discount-col">
+                  <span class="discount-label">Discount</span>
+                  <div class="discount-select-wrapper">
+                    <select 
+                      [(ngModel)]="activeTier.yearlyDiscountPercentage"
+                      (ngModelChange)="state.updateTier(activeTier.id, { yearlyDiscountPercentage: $event })"
+                    >
+                      <option [value]="5">5%</option>
+                      <option [value]="10">10%</option>
+                      <option [value]="15">15%</option>
+                      <option [value]="20">20%</option>
+                    </select>
+                    <svg class="select-arrow" viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                      <path d="M7 10l5 5 5-5z"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="user-pays-col">
+                  <span class="discount-label">User Pays</span>
+                  <div class="yearly-price">
+                    <span class="original-price">{{ yearlyOriginalPrice | number:'1.2-2' }}</span>
+                    <span class="discounted-price">{{ yearlyDiscountedPrice | number:'1.2-2' }}</span>
+                    <span class="per-year">per Year</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Request Quote Only -->
+            <div class="input-block quote-section">
+              <div class="label-with-toggle">
+                <label>Request Quote Only</label>
+                <label class="toggle-switch">
+                  <input 
+                    type="checkbox" 
+                    [(ngModel)]="activeTier.isQuoteOnly"
+                    (ngModelChange)="state.updateTier(activeTier.id, { isQuoteOnly: $event })"
+                  >
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+              <p class="help-text">Hide price, show "Request Quote only"</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Editor Footer -->
+      <div class="editor-footer">
+        <div class="popular-toggle">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="#9ca3af">
+            <path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7-6.3-4.6-6.3 4.6 2.3-7-6-4.6h7.6z"></path>
+          </svg>
+          <span>Mark as Popular Choice</span>
+          <label class="toggle-switch">
+            <input 
+              type="checkbox" 
+              [(ngModel)]="activeTier.isPopular"
+              (ngModelChange)="state.updateTier(activeTier.id, { isPopular: $event })"
+            >
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+        <button (click)="deleteActiveTier()" class="delete-tier-btn">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+          </svg>
+          Delete Tier
+        </button>
+      </div>
+    </div>
+  </ng-template>
 </div>

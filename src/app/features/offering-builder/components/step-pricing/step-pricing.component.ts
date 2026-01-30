@@ -1,7 +1,13 @@
-import { Component, EventEmitter, Output, ChangeDetectionStrategy, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { BuilderStateService } from '../../services/builder-state.service';
+import {
+  Component,
+  EventEmitter,
+  Output,
+  ChangeDetectionStrategy,
+  signal,
+} from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
+import { BuilderStateService } from "../../services/builder-state.service";
 
 @Component({
   selector: 'app-step-pricing',
@@ -21,7 +27,10 @@ export class StepPricingComponent {
 
   constructor(public state: BuilderStateService) {
     // If tiers already exist (more than 1 or first one is filled), don't show recommendations
-    if (this.state.offering().tiers.length > 1 || this.state.offering().tiers[0].name !== 'Standard') {
+    if (
+      this.state.offering().tiers.length > 1 ||
+      this.state.offering().tiers[0].name !== "Standard"
+    ) {
       this.isShowRecommendations.set(false);
     }
   }
@@ -30,33 +39,51 @@ export class StepPricingComponent {
     return this.state.offering().tiers[this.activeTierIndex()];
   }
 
+  getOfferingTypeLabel(): string {
+    const type = this.state.offering().type;
+    switch (type) {
+      case "Service":
+        return "Service";
+      case "Product":
+        return "Product";
+      case "Subscription":
+        return "Subscription";
+      default:
+        return "Service";
+    }
+  }
+
   useAiStructure() {
     const aiTiers = [
       {
-        id: 'tier-starter',
-        name: 'Starter',
-        description: '',
+        id: "tier-starter",
+        name: "Starter",
+        description: "",
         price: 550,
-        billingType: 'Per Project' as any,
-        features: ['Basic Support', 'Standard Delivery']
+        billingType: "Per Project" as const,
+        features: ["Basic Support", "Standard Delivery"],
       },
       {
-        id: 'tier-pro',
-        name: 'Professional',
-        description: '',
+        id: "tier-pro",
+        name: "Professional",
+        description: "",
         price: 880,
-        billingType: 'Per Project' as any,
-        features: ['Priority Support', 'Fast Delivery', 'Customization'],
-        isPopular: true
+        billingType: "Per Project" as const,
+        features: ["Priority Support", "Fast Delivery", "Customization"],
+        isPopular: true,
       },
       {
-        id: 'tier-ent',
-        name: 'Enterprise',
-        description: '',
+        id: "tier-ent",
+        name: "Enterprise",
+        description: "",
         price: 1200,
-        billingType: 'Per Project' as any,
-        features: ['24/7 Support', 'Instant Delivery', 'Unlimited Customization']
-      }
+        billingType: "Per Project" as const,
+        features: [
+          "24/7 Support",
+          "Instant Delivery",
+          "Unlimited Customization",
+        ],
+      },
     ];
 
     this.state.updateOffering({ tiers: aiTiers });
@@ -92,11 +119,11 @@ export class StepPricingComponent {
     return original * (1 - discount / 100);
   }
 
-  onDiscountToggle(event: any) {
-    const checked = event.target.checked;
+  onDiscountToggle(event: Event) {
+    const checked = (event.target as HTMLInputElement).checked;
     this.state.updateTier(this.activeTier.id, {
       hasYearlyDiscount: checked,
-      yearlyDiscountPercentage: checked ? 20 : 0
+      yearlyDiscountPercentage: checked ? 20 : 0,
     });
   }
 }

@@ -40,6 +40,7 @@ export interface Offering {
     thumbnail?: string;
     gallery: string[];
     themeColor?: string;
+    themeGradient?: string;
 }
 
 export const DEFAULT_OFFERING: Offering = {

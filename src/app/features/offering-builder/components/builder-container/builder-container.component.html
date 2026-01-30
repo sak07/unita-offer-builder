@@ -7,9 +7,10 @@
         <div class="stepper-line"></div>
         <div class="steps">
           <div *ngFor="let label of stepLabels; let i = index" class="step-item"
-            [class.active]="currentStep() === (i + 1)" [class.completed]="currentStep() > (i + 1)">
+            [class.active]="currentStep() === (i + 1)" 
+            [class.completed]="currentStep() > (i + 1) || (i === 0 && state.offering().type)">
             <div class="step-circle">
-              <ng-container *ngIf="currentStep() > (i + 1); else stepNum">
+              <ng-container *ngIf="currentStep() > (i + 1) || (i === 0 && state.offering().type); else stepNum">
                 <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="3" fill="none">
                   <polyline points="20 6 9 17 4 12"></polyline>
                 </svg>
