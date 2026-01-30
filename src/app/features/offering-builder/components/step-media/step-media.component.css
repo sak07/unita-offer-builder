@@ -1,0 +1,258 @@
+.step-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.main-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 32px;
+  align-items: start;
+}
+
+/* Editor card – white, rounded, shadow */
+.editor-card {
+  background: white;
+  border-radius: 24px;
+  padding: 32px;
+  border: 1px solid #f3f4f6;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.heading-section {
+  margin-bottom: 24px;
+}
+
+.heading-section h1 {
+  font-size: 24px;
+  font-weight: 800;
+  color: #111827;
+  margin: 0 0 4px 0;
+}
+
+.heading-sub {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+  font-weight: 400;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 24px 0;
+  color: #111827;
+}
+
+.field-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.media-grid {
+  display: grid;
+  grid-template-columns: 1fr 140px;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.thumbnail-block {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.thumbnail-upload {
+  position: relative;
+  border: 2px dashed #d1d5db;
+  border-radius: 16px;
+  background: #fafafa;
+  width: 100%;
+  height: 180px;
+  min-height: 180px;
+  max-height: 180px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  box-sizing: border-box;
+}
+
+.thumbnail-upload:hover {
+  border-color: #e5e7eb;
+  background: #f9fafb;
+}
+
+.thumbnail-preview-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.thumbnail-preview {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 14px;
+}
+
+.upload-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  padding: 24px;
+}
+
+.upload-placeholder svg {
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+.upload-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  max-width: 220px;
+}
+
+.upload-subtext {
+  font-size: 11px;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.gallery-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.gallery-slot {
+  border: 2px dashed #d1d5db;
+  border-radius: 16px;
+  background: #fafafa;
+  min-height: 82px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.gallery-slot:hover {
+  border-color: #e5e7eb;
+  background: #f9fafb;
+}
+
+.gallery-slot svg {
+  color: #6b7280;
+}
+
+.gallery-slot span {
+  font-size: 11px;
+  font-weight: 600;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+.color-section {
+  border-top: 1px solid #f3f4f6;
+  padding-top: 24px;
+}
+
+.label-hint {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 16px 0;
+}
+
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  max-width: 440px;
+}
+
+.color-swatch {
+  aspect-ratio: 1;
+  max-width: 100px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.color-swatch:hover {
+  transform: scale(1.02);
+}
+
+.color-swatch.active {
+  outline: 2px solid white;
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.12);
+}
+
+.color-swatch.active svg {
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
+}
+
+/* Preview column – sticky, same card style */
+.preview-column {
+  position: sticky;
+  top: 24px;
+}
+
+.preview-card {
+  background: white;
+  border-radius: 24px;
+  padding: 24px;
+  border: 1px solid #f3f4f6;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.preview-label {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 16px 0;
+}
+
+@media (max-width: 1024px) {
+  .main-layout {
+    grid-template-columns: 1fr;
+  }
+
+  /* On narrow screens preview is shown only in the builder’s dialog */
+  .preview-column {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .media-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .color-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

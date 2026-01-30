@@ -1,0 +1,240 @@
+.step-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.heading-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.heading-section h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #111827;
+    margin: 0 0 0.5rem 0;
+}
+
+.heading-section p {
+    color: #6b7280;
+    margin: 0;
+}
+
+.preview-badge {
+    background: #f06a6a;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.75rem;
+    font-weight: 700;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 12px rgba(240, 106, 106, 0.2);
+}
+
+.suggestion-bar {
+    background: #e0f2fe;
+    border-radius: 1rem;
+    padding: 1rem 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: 0.875rem;
+}
+
+.suggestion-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.suggestion-label {
+    font-weight: 700;
+    color: #0369a1;
+}
+
+.suggestion-pill {
+    background: white;
+    border: 1px solid #bae6fd;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    color: #0369a1;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.suggestion-pill.active {
+    background: #0ea5e9;
+    color: white;
+    border-color: #0ea5e9;
+}
+
+.ai-hint {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #0369a1;
+    font-weight: 600;
+}
+
+.ai-hint .sparkle-icon {
+    color: #0ea5e9;
+}
+
+.cards-section {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 1.5rem;
+    border: 1px solid #f3f4f6;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.section-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+.offering-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.offering-card {
+    position: relative;
+    padding: 2rem 1.5rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: white;
+}
+
+.offering-card:hover {
+    border-color: #f06a6a;
+    background: #fffafa;
+}
+
+.offering-card.selected {
+    border-color: #f06a6a;
+    border-width: 2px;
+    background: #fffafa;
+}
+
+.suggested-tag {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    color: #f06a6a;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    border: 1px solid #fee2e2;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.card-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+}
+
+.selected .card-icon {
+    color: #f06a6a;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #111827;
+}
+
+.selected .card-title {
+    color: #f06a6a;
+}
+
+.card-description {
+    font-size: 0.875rem;
+    color: #6b7280;
+    line-height: 1.4;
+}
+
+.explanation-box {
+    background: #e0f2fe;
+    border-radius: 1rem;
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.explanation-icon {
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0ea5e9;
+    flex-shrink: 0;
+}
+
+.explanation-content h4 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0369a1;
+}
+
+.explanation-content p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: #0369a1;
+    opacity: 0.9;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .offering-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .heading-section {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}

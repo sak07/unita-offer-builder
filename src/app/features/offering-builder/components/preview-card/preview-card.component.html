@@ -1,0 +1,89 @@
+<div
+    class="card bg-white shadow-2xl rounded-2xl overflow-hidden border border-gray-100 flex flex-col w-full max-w-[350px]">
+
+    <div class="preview-image-container aspect-[4/3] flex items-center justify-center relative overflow-hidden"
+        [style.background-color]="!state.offering().thumbnail ? state.offering().themeColor : 'transparent'">
+
+        <img *ngIf="state.offering().thumbnail; else placeholder" [src]="state.offering().thumbnail"
+            class="preview-card-image w-full h-full object-cover">
+        <ng-template #placeholder>
+            <div class="flex flex-col items-center text-white/50">
+                <svg class="w-12 h-12 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                    </path>
+                </svg>
+            </div>
+        </ng-template>
+
+        <div
+            class="absolute top-3 left-3 px-2 py-1 bg-white/90 backdrop-blur rounded text-[10px] font-bold uppercase tracking-widest text-gray-600 shadow-sm border border-gray-100">
+            {{ state.offering().type || 'Draft' }}
+        </div>
+    </div>
+
+    <div class="p-5 space-y-4">
+        <div class="flex justify-between items-baseline">
+            <h3 class="text-lg font-extrabold text-gray-900 leading-tight line-clamp-1 w-2/3">
+                {{ state.offering().name || 'New Offering' }}
+            </h3>
+            <div class="text-right">
+                <div class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Price</div>
+                <div class="text-lg font-black text-gray-900">
+                    <ng-container *ngIf="!state.priceDisplay().isQuoteOnly; else quoteOnly">
+                        <ng-container *ngIf="state.priceDisplay().max; else singlePrice">
+                            NZD {{ state.priceDisplay().min }}–{{ state.priceDisplay().max }}
+                        </ng-container>
+                        <ng-template #singlePrice>
+                            NZD {{ state.priceDisplay().min }}
+                        </ng-template>
+                        <span *ngIf="state.priceDisplay().period" class="text-xs text-gray-400 font-normal">/{{
+                            state.priceDisplay().period }}</span>
+                    </ng-container>
+                    <ng-template #quoteOnly>
+                        <span class="text-sm">Request Quote</span>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+
+        <p *ngIf="state.offering().tagline" class="text-sm font-semibold text-gray-700 leading-tight">
+            {{ state.offering().tagline }}
+        </p>
+
+        <ul *ngIf="state.offering().features.length > 0 && state.offering().features[0]" class="space-y-1">
+            <li *ngFor="let feat of state.offering().features.slice(0, 3)"
+                class="flex items-center gap-2 text-xs text-gray-500">
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor" class="text-green-500">
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path>
+                </svg>
+                <span class="line-clamp-1">{{ feat }}</span>
+            </li>
+        </ul>
+
+        <p class="text-gray-400 text-[11px] leading-relaxed line-clamp-2">
+            {{ state.offering().description || 'Add a description to tell your story...' }}
+        </p>
+
+        <!-- Tiers Badge -->
+        <div *ngIf="state.offering().tiers.length > 1" class="pt-2">
+            <span
+                class="px-2 py-1 bg-teal-50 text-teal-700 text-[10px] font-black rounded uppercase tracking-wider border border-teal-100 italic">
+                +{{ state.offering().tiers.length }} Tiers
+            </span>
+        </div>
+
+
+        <div class="pt-4 flex items-center justify-between border-t border-gray-50">
+            <div class="flex -space-x-2">
+                <div
+                    class="w-8 h-8 rounded-full border-2 border-white bg-blue-100 flex items-center justify-center text-[10px] font-bold text-blue-600">
+                    SM</div>
+            </div>
+            <button
+                class="px-4 py-1.5 bg-gray-900 text-white text-xs font-bold rounded-lg hover:bg-black transition-colors">
+                View Details
+            </button>
+        </div>
+    </div>
+</div>

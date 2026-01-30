@@ -1,0 +1,412 @@
+.step-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.heading-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.heading-section h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #111827;
+    margin: 0 0 0.5rem 0;
+}
+
+.heading-section p {
+    color: #6b7280;
+    margin: 0;
+}
+
+.preview-badge {
+    background: #f06a6a;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.75rem;
+    font-weight: 700;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.hint-bar {
+    background: #0ea5e9;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    display: flex;
+    color: white;
+}
+
+.hint-icon {
+    background: #0369a1;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hint-text {
+    padding: 1rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+/* Recommendation View */
+.recommendation-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 1.5rem;
+}
+
+.recommendation-card {
+    background: #e0f2fe;
+    padding: 2.5rem;
+    border-radius: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    text-align: center;
+}
+
+.ai-badge {
+    background: #0369a1;
+    color: white;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    align-self: flex-start;
+}
+
+.structure-preview {
+    display: flex;
+    gap: 0.75rem;
+    width: 100%;
+    justify-content: center;
+}
+
+.structure-item {
+    background: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 700;
+    color: #374151;
+    font-size: 0.875rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.structure-item.active {
+    border: 2px solid #fcd34d;
+    background: #fffcf0;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+}
+
+.manual-card {
+    border: 2px dashed #e5e7eb;
+    background: white;
+    border-radius: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+}
+
+.manual-card h3 {
+    font-weight: 700;
+    color: #374151;
+    margin: 0;
+}
+
+/* Tier Editor View */
+.editor-card {
+    background: white;
+    border-radius: 1.5rem;
+    border: 1px solid #f3f4f6;
+    overflow: hidden;
+}
+
+.editor-header {
+    padding: 1.5rem 2rem;
+    background: #f9fbfc;
+    border-bottom: 1px solid #f3f4f6;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.tier-tabs {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.tier-tab {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 700;
+    font-size: 0.875rem;
+    color: #6b7280;
+    background: white;
+    border: 2px dotted #e5e7eb;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.tier-tab.active {
+    background: #f06a6a;
+    color: white;
+    border-color: #f06a6a;
+    border-style: solid;
+}
+
+.tier-tab:not(.active):hover {
+    border-color: #d1d5db;
+}
+
+.editor-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 400px;
+}
+
+.editor-left {
+    padding: 2rem;
+    border-right: 1px solid #f3f4f6;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.editor-right {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.input-block {
+    position: relative;
+}
+
+label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #374151;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.025em;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    font-size: 0.875rem;
+    background: #f9fbfc;
+}
+
+input:focus {
+    background: white;
+    border-color: #0ea5e9;
+    outline: none;
+}
+
+.char-count {
+    position: absolute;
+    bottom: -1rem;
+    right: 0;
+    font-size: 0.625rem;
+    color: #9ca3af;
+}
+
+/* Billing Toggle */
+.billing-toggle {
+    background: #e5e7eb;
+    padding: 0.25rem;
+    border-radius: 0.75rem;
+    display: flex;
+    gap: 0.25rem;
+}
+
+.billing-opt {
+    flex: 1;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-align: center;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.billing-opt.active {
+    background: white;
+    color: #111827;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Price Range Inputs */
+.price-range-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.price-input-box {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background: #f9fbfc;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+.currency-label {
+    padding: 0 0.75rem;
+    font-size: 0.75rem;
+    color: #6b7280;
+    font-weight: 700;
+    border-right: 1px solid #e5e7eb;
+}
+
+.price-input-box input {
+    border: none;
+    background: transparent;
+    padding: 0.75rem;
+}
+
+.range-line {
+    width: 20px;
+    height: 1px;
+    background: #d1d5db;
+}
+
+.period-select {
+    width: 100px;
+    border-left: 1px solid #e5e7eb;
+    border-radius: 0 0.75rem 0.75rem 0;
+}
+
+/* Footer Section */
+.editor-footer {
+    padding: 1.5rem 2rem;
+    background: #f9fbfc;
+    border-top: 1px solid #f3f4f6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toggle-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #374151;
+}
+
+/* Switch Component Styles */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked+.slider {
+    background-color: #111827;
+}
+
+input:checked+.slider:before {
+    transform: translateX(20px);
+}
+
+.delete-btn {
+    color: #9ca3af;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    color: #f06a6a;
+}
+
+.btn-pill-outline {
+    border: 1px solid #f06a6a;
+    color: #f06a6a;
+    background: white;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    font-size: 0.75rem;
+}
+
+.info-tip {
+    background: #e0f2fe;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    color: #0369a1;
+    font-size: 0.7rem;
+    font-weight: 500;
+}
