@@ -31,9 +31,15 @@ export class BuilderStateService {
         };
     });
 
+    private static readonly LIMITS = { name: 85, tagline: 100, description: 350, feature: 50 } as const;
+
     // State Updates
     updateOffering(partial: Partial<Offering>) {
-        this.offeringSignal.update((state: Offering) => ({ ...state, ...partial }));
+        const capped: Partial<Offering> = { ...partial };
+        if (typeof capped.name === 'string') capped.name = capped.name.slice(0, BuilderStateService.LIMITS.name);
+        if (typeof capped.tagline === 'string') capped.tagline = capped.tagline.slice(0, BuilderStateService.LIMITS.tagline);
+        if (typeof capped.description === 'string') capped.description = capped.description.slice(0, BuilderStateService.LIMITS.description);
+        this.offeringSignal.update((state: Offering) => ({ ...state, ...capped }));
     }
 
     updateTier(tierId: string, partial: Partial<PricingTier>) {
@@ -110,9 +116,10 @@ export class BuilderStateService {
     }
 
     updateFeature(index: number, value: string) {
+        const capped = value.slice(0, BuilderStateService.LIMITS.feature);
         this.offeringSignal.update(state => {
             const features = [...state.features];
-            features[index] = value;
+            features[index] = capped;
             return { ...state, features };
         });
     }

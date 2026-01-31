@@ -115,8 +115,8 @@
     align-items: center;
     gap: 0.375rem;
 
-    svg {
-        fill: #22c55e;
+    .material-icons {
+        color: #22c55e;
     }
 
     .dropdown-arrow {
@@ -304,7 +304,7 @@
 
         .drag-icon {
             opacity: 0.7;
-            fill: white;
+            color: white;
         }
     }
 
@@ -427,7 +427,7 @@ select {
         top: 50%;
         transform: translateY(-50%);
         pointer-events: none;
-        fill: #6b7280;
+        color: #6b7280;
     }
 }
 
@@ -467,8 +467,8 @@ select {
         text-decoration: underline;
     }
 
-    svg {
-        fill: #0ea5e9;
+    .material-icons {
+        color: #0ea5e9;
     }
 }
 
@@ -641,7 +641,7 @@ select {
         top: 50%;
         transform: translateY(-50%);
         pointer-events: none;
-        fill: #6b7280;
+        color: #6b7280;
     }
 }
 
@@ -695,7 +695,7 @@ select {
         top: 50%;
         transform: translateY(-50%);
         pointer-events: none;
-        fill: #6b7280;
+        color: #6b7280;
     }
 }
 

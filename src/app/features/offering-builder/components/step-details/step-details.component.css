@@ -4,8 +4,8 @@
     flex-direction: column;
     gap: 1.5rem;
     padding: 1.5rem;
-    background-color: #f8f9fa;
-    min-height: 100vh;
+    /* background-color: #f8f9fa; */
+    /* min-height: 100vh; */
 }
 
 /* Heading Section: title left, Preview Card button right */
@@ -36,6 +36,12 @@
     margin: 0;
 }
 
+.preview-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
 .preview-card-btn {
     display: flex;
     align-items: center;
@@ -61,8 +67,8 @@
 .hint-bar {
     display: flex;
     align-items: stretch;
-    background: #3eb8e5;
-    border-radius: 0.75rem;
+    background: #e8f4f8;
+    border-radius: 3rem;
     overflow: hidden;
 }
 
@@ -70,11 +76,11 @@
     display: flex;
     align-items: center;
     gap: 0.375rem;
-    background: #2da8d4;
+    background: #24799A;
     padding: 0.875rem 1rem;
     color: white;
 
-    span {
+    span:not(.material-icons) {
         font-size: 0.75rem;
         font-weight: 700;
         text-transform: uppercase;
@@ -87,7 +93,7 @@
     align-items: center;
     padding: 0.875rem 1.25rem;
     font-size: 0.875rem;
-    color: white;
+    color: #5a9aab;
     font-weight: 400;
 }
 
@@ -115,6 +121,20 @@
 
 .card-header .card-title {
     margin: 0;
+}
+
+.card-title-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #925526;
+    margin-left: auto;
+}
+
+.card-title-hint .material-icons {
+    color: #925526;
 }
 
 .info-pill {
@@ -214,6 +234,15 @@ textarea {
     font-weight: 500;
 }
 
+/* Features Actions: Add Bullet Point button + info pill horizontally */
+.features-actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: nowrap;
+}
+
 /* Features List */
 .features-list {
     display: flex;
@@ -229,6 +258,8 @@ textarea {
 .add-bullet-btn {
     display: inline-flex;
     align-items: center;
+    white-space: nowrap;
+    flex-shrink: 0;
     padding: 0.5rem 1rem;
     border: 1.5px solid #e07a7a;
     border-radius: 9999px;
@@ -262,7 +293,7 @@ textarea {
     border-radius: 9999px;
     font-size: 0.875rem;
     font-weight: 500;
-    color: #3eb8e5;
+    color: #5a9aab;
 }
 
 .tag-remove {

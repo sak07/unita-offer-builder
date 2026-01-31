@@ -1,30 +1,25 @@
 <div class="step-container">
 
-    <!-- Heading Section: title + Preview Card button (next to step name) -->
+    <!-- Heading Section: title + Preview Card button -->
     <div class="heading-section">
         <div class="heading-text">
             <h1>What are you offering?</h1>
             <p>Pick the type that suits your offering the most.</p>
         </div>
         <button type="button" class="preview-card-btn" (click)="openPreview.emit()" aria-label="Preview card">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                <circle cx="12" cy="12" r="3"/>
-            </svg>
-            Preview Card*
+            <img src="assets/preview.png" alt="Preview" class="preview-icon" />
+      Preview Card*
         </button>
     </div>
 
-    <!-- Based on your type of company – matches image: one pill (Company Type | Consultancy), then Categories + pills on same row -->
+    <!-- Based on your type of company -->
     <div class="company-section">
         <h3 class="company-section-title">Based on your type of company:</h3>
         <div class="company-section-row">
             <div class="company-type-selector">
                 <span class="company-type-label">Company Type</span>
                 <span class="company-type-value">
-                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
-                        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
-                    </svg>
+                    <span class="material-icons" style="font-size: 16px;">business_center</span>
                     Consultancy
                 </span>
             </div>
@@ -34,13 +29,12 @@
                 <button type="button" class="category-pill">Notary</button>
                 <button type="button" class="category-pill">Legal Services</button>
             </div>
-            <div class="ai-hint">
-                <svg class="ai-hint-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
-                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-                </svg>
-                Unita AI suggests: <span class="ai-hint-value">Service</span>
-            </div>
         </div>
+    </div>
+    <div class="ai-suggestion">
+        <span class="material-icons ai-icon" style="font-size: 18px;">auto_awesome</span>
+        <span class="ai-text">Unita AI suggests:</span>
+        <span class="ai-value">Service</span>
     </div>
 
     <!-- Selection Cards Section -->
@@ -49,93 +43,79 @@
 
         <div class="offering-cards">
             <!-- Product -->
-            <div class="offering-card" [class.selected]="state.offering().type === 'Product'"
+            <div class="offering-card" 
+                [class.selected]="state.offering().type === 'Product'"
                 (click)="selectType('Product')">
-                <div class="card-icon">
-                    <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="2" fill="none">
-                        <path
-                            d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
-                        </path>
-                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
-                    </svg>
+                <div class="card-icon" style="--icon-url: url('assets/product_icon.png')">
+                    <img src="assets/product_icon.png" alt="Product" class="card-icon-img" />
+                    <span class="card-icon-mask" aria-hidden="true"></span>
                 </div>
                 <span class="card-title">Product</span>
                 <span class="card-description">Goods to sell, physical or digital</span>
             </div>
 
-            <!-- Service (Suggested) – highlight only when selected -->
-            <div class="offering-card offering-card--suggested" [class.selected]="state.offering().type === 'Service'"
+            <!-- Service (Suggested) -->
+            <div class="offering-card offering-card--service" 
+                [class.selected]="state.offering().type === 'Service'"
                 (click)="selectType('Service')">
-                <div class="suggested-tag">Suggested!</div>
-                <div class="card-icon">
-                    <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-                    </svg>
+                <span class="suggested-tag">Suggested!</span>
+                <div class="card-icon" style="--icon-url: url('assets/service_icon.png')">
+                    <img src="assets/service_icon.png" alt="Service" class="card-icon-img" />
+                    <span class="card-icon-mask" aria-hidden="true"></span>
                 </div>
                 <span class="card-title">Service</span>
-                <span class="card-description">Work you provide, project-based or in installments</span>
+                <span class="card-description">Work you provide, project-based<br>or in installments</span>
             </div>
 
             <!-- Subscription -->
-            <div class="offering-card" [class.selected]="state.offering().type === 'Subscription'"
+            <div class="offering-card" 
+                [class.selected]="state.offering().type === 'Subscription'"
                 (click)="selectType('Subscription')">
-                <div class="card-icon">
-                    <svg viewBox="0 0 24 24" width="32" height="32" stroke="currentColor" stroke-width="2" fill="none">
-                        <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
-                        <path d="M21 3v5h-5"></path>
-                        <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
-                        <path d="M3 21v-5h5"></path>
-                    </svg>
+                <div class="card-icon" style="--icon-url: url('assets/subscription_icon.png')">
+                    <img src="assets/subscription_icon.png" alt="Subscription" class="card-icon-img" />
+                    <span class="card-icon-mask" aria-hidden="true"></span>
                 </div>
                 <span class="card-title">Subscription</span>
                 <span class="card-description">Recurring payments for consistent value</span>
             </div>
         </div>
 
-        <!-- Product sub-options: Physical / Digital (shown when Product is selected) -->
+        <!-- Product sub-options: Physical / Digital -->
         <div *ngIf="state.offering().type === 'Product'" class="product-sub-options">
-            <button type="button" class="product-sub-btn" [class.selected]="state.offering().productType === 'Physical'"
+            <button type="button" class="product-sub-btn" style="--icon-url: url('assets/physical_product.png')"
+                [class.selected]="state.offering().productType === 'Physical'"
                 (click)="selectProductType('Physical')">
-                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
-                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-                    <line x1="12" y1="22.08" x2="12" y2="12"/>
-                </svg>
+                <img src="assets/physical_product.png" alt="Physical" class="product-sub-icon" />
+                <span class="product-sub-icon-mask" aria-hidden="true"></span>
                 Physical Product
             </button>
-            <button type="button" class="product-sub-btn" [class.selected]="state.offering().productType === 'Digital'"
+            <button type="button" class="product-sub-btn" style="--icon-url: url('assets/digital_product.png')"
+                [class.selected]="state.offering().productType === 'Digital'"
                 (click)="selectProductType('Digital')">
-                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
-                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-                    <line x1="8" y1="21" x2="16" y2="21"/>
-                    <line x1="12" y1="17" x2="12" y2="21"/>
-                </svg>
+                <img src="assets/digital_product.png" alt="Digital" class="product-sub-icon product-sub-icon--digital" />
+                <span class="product-sub-icon-mask product-sub-icon-mask--digital" aria-hidden="true"></span>
                 Digital Product
             </button>
         </div>
-    </div>
 
-    <!-- Explanation Box (Dynamic) – light blue, icon left, text right per image -->
-    <div *ngIf="state.offering().type" class="explanation-box">
-        <div class="explanation-icon">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1zM9 19h6v1H9v-1z"/>
-            </svg>
-        </div>
-        <div class="explanation-content">
-            <h4>{{ state.offering().type }} Explanation</h4>
-            <p *ngIf="state.offering().type === 'Service'">
-                Works best for companies that offer consultancies and other work you provide. Configure Pricing Tiers in
-                the next step.
-            </p>
-            <p *ngIf="state.offering().type === 'Product'">
-                Ideal for physical goods or digital downloads. You can manage inventory and shipping in later steps.
-            </p>
-            <p *ngIf="state.offering().type === 'Subscription'">
-                Best for memberships or recurring services. Set up billing cycles and access levels in the next step.
-            </p>
+        <!-- Explanation Box -->
+        <div *ngIf="state.offering().type" class="explanation-box">
+            <div class="explanation-icon">
+                <span class="material-icons" style="font-size: 28px;">lightbulb</span>
+            </div>
+            <div class="explanation-content">
+                <h4>{{ state.offering().type }} Explanation</h4>
+                <p *ngIf="state.offering().type === 'Service'">
+                    Works best for companies that offer consultancies and other work you provide.
+                    Configure Pricing Tiers in the next step.
+                </p>
+                <p *ngIf="state.offering().type === 'Product'">
+                    Works best for companies that offer concrete manufactured goods, or software products.
+                </p>
+                <p *ngIf="state.offering().type === 'Subscription'">
+                    Best for memberships or recurring services. Set up billing cycles and access levels in the next step.
+                </p>
+            </div>
         </div>
     </div>
 
