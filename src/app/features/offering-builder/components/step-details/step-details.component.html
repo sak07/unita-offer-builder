@@ -1,16 +1,17 @@
 <div class="offering-container">
 
-  <!-- Heading Section -->
+  <!-- Heading Section: title + Preview Card button (next to step name) -->
   <div class="heading-section">
     <div class="heading-text">
       <h1>Offering Details</h1>
       <p>Describe your offering's characteristics</p>
     </div>
-    <button class="preview-btn">
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-        <path d="M4 5c-1.103 0-2 .897-2 2v10c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V7c0-1.103-.897-2-2-2H4zm16 12H4V7h16v10zM12 9c-2.757 0-5 2.243-5 5h2c0-1.654 1.346-3 3-3s3 1.346 3 3h2c0-2.757-2.243-5-5-5z"></path>
+    <button type="button" class="preview-card-btn" (click)="openPreview.emit()" aria-label="Preview card">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+        <circle cx="12" cy="12" r="3"/>
       </svg>
-      <span>Preview Card<sup>*</sup></span>
+      Preview Card*
     </button>
   </div>
 
@@ -66,7 +67,7 @@
         <div class="form-group">
           <label>Key Features <span class="label-hint">(shown as bullet points)</span></label>
           <div class="features-list">
-            <div *ngFor="let feature of state.offering().features; let i = index" class="input-wrapper">
+            <div *ngFor="let feature of state.offering().features; let i = index; trackBy: trackByIndex" class="input-wrapper">
               <input 
                 type="text" 
                 [ngModel]="feature"

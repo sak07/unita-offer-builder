@@ -14,10 +14,16 @@ import { BuilderStateService } from '../../services/builder-state.service';
 export class StepDetailsComponent {
   @Output() next = new EventEmitter<void>();
   @Output() back = new EventEmitter<void>();
+  @Output() openPreview = new EventEmitter<void>();
 
   newTagInput = '';
 
   state = inject(BuilderStateService);
+
+  /** Stable identity for *ngFor so inputs keep focus when features array is updated. */
+  trackByIndex(index: number, _item: string): number {
+    return index;
+  }
 
   openTagInput() {
     const tag = prompt('Enter a new tag:');

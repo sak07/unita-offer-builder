@@ -1,77 +1,76 @@
 <div class="builder-layout">
   <main class="builder-content">
-
-    <!-- Stepper + Preview Card button (narrow screens) -->
-    <div class="stepper-row">
-      <div class="stepper-container">
-        <div class="stepper-line"></div>
-        <div class="steps">
-          <div *ngFor="let label of stepLabels; let i = index" class="step-item"
-            [class.active]="currentStep() === (i + 1)" 
-            [class.completed]="currentStep() > (i + 1) || (i === 0 && state.offering().type)">
-            <div class="step-circle">
-              <ng-container *ngIf="currentStep() > (i + 1) || (i === 0 && state.offering().type); else stepNum">
-                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="3" fill="none">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              </ng-container>
-              <ng-template #stepNum>{{ i + 1 }}</ng-template>
+    <!-- Single light-gray panel: stepper, content, footer aligned inside one elevated box -->
+    <div class="main-panel">
+      <!-- Stepper -->
+      <div class="stepper-row">
+        <div class="stepper-row-inner">
+          <div class="stepper-container">
+            <div class="stepper-line"></div>
+            <div class="steps">
+              <div *ngFor="let label of stepLabels; let i = index" class="step-item"
+                [class.active]="currentStep() === (i + 1)" 
+                [class.completed]="currentStep() > (i + 1) || (i === 0 && step1Complete())">
+                <div class="step-circle">
+                  <ng-container *ngIf="currentStep() > (i + 1) || (i === 0 && step1Complete()); else stepNum">
+                    <svg class="step-check-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M5 12l5 5 9-9"/>
+                    </svg>
+                  </ng-container>
+                  <ng-template #stepNum>{{ i + 1 }}</ng-template>
+                </div>
+                <span class="step-label">{{ label }}</span>
+              </div>
             </div>
-            <span class="step-label">{{ label }}</span>
           </div>
         </div>
       </div>
-      <button type="button" class="preview-card-btn" (click)="togglePreviewDialog()"
-        aria-label="Preview card">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-          <circle cx="8.5" cy="8.5" r="1.5"/>
-          <path d="M21 15l-5-5L5 21"/>
-        </svg>
-        Preview Card
-      </button>
-    </div>
 
-    <!-- Scrollable Content Area -->
-    <div class="scroll-area">
-      <div class="content-width" [class.content-width--wide]="currentStep() === 4">
-        <div class="step-wrapper">
-          <ng-container [ngSwitch]="currentStep()">
-            <app-step-selection *ngSwitchCase="1" (next)="nextStep()"></app-step-selection>
-            <app-step-details *ngSwitchCase="2" (next)="nextStep()" (back)="prevStep()"></app-step-details>
-            <app-step-pricing *ngSwitchCase="3" (next)="nextStep()" (back)="prevStep()"></app-step-pricing>
-            <app-step-media *ngSwitchCase="4" (finish)="finish()" (back)="prevStep()"></app-step-media>
-          </ng-container>
+      <!-- Scrollable Content Area -->
+      <div class="scroll-area">
+        <div class="content-width" [class.content-width--wide]="currentStep() === 4">
+          <div class="step-wrapper">
+            <ng-container [ngSwitch]="currentStep()">
+              <app-step-selection *ngSwitchCase="1" (next)="nextStep()" (openPreview)="togglePreviewDialog()"></app-step-selection>
+              <app-step-details *ngSwitchCase="2" (next)="nextStep()" (back)="prevStep()" (openPreview)="togglePreviewDialog()"></app-step-details>
+              <app-step-pricing *ngSwitchCase="3" (next)="nextStep()" (back)="prevStep()" (openPreview)="togglePreviewDialog()"></app-step-pricing>
+              <app-step-media *ngSwitchCase="4" (finish)="finish()" (back)="prevStep()"></app-step-media>
+            </ng-container>
+          </div>
         </div>
       </div>
+
+      <!-- Navigation Footer: aligned with panel edges -->
+      <footer class="builder-footer">
+        <div class="footer-inner" [class.footer-inner--wide]="currentStep() === 4">
+          <div class="footer-left">
+            <button (click)="finish()" class="footer-btn btn-secondary">Cancel</button>
+          </div>
+          <div class="footer-center">
+            <button *ngIf="currentStep() > 1" (click)="prevStep()" class="footer-btn btn-outline">
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+                <path d="M19 12H5M12 19l-7-7 7-7"></path>
+              </svg>
+              Previous
+            </button>
+          </div>
+          <div class="footer-right">
+            <button (click)="nextStep()" [disabled]="currentStep() === 1 && !step1Complete()"
+              class="footer-btn btn-primary">
+              {{ currentStep() === 4 ? 'Finish' : (currentStep() === 1 ? 'Continue' : 'Next Step') }}
+              <svg *ngIf="currentStep() < 4" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor"
+                stroke-width="2" fill="none">
+                <path d="M5 12h14M12 5l7 7-7 7"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </footer>
     </div>
-
-    <!-- Navigation Footer (Matches Image) -->
-    <footer class="builder-footer">
-      <button (click)="finish()" class="footer-btn btn-secondary">Cancel</button>
-
-      <div class="flex gap-4">
-        <button *ngIf="currentStep() > 1" (click)="prevStep()" class="footer-btn btn-outline">
-          <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
-            <path d="M19 12H5M12 19l-7-7 7-7"></path>
-          </svg>
-          Previous
-        </button>
-
-        <button (click)="nextStep()" [disabled]="currentStep() === 1 && !state.offering().type"
-          class="footer-btn btn-primary">
-          {{ currentStep() === 4 ? 'Finish' : (currentStep() === 1 ? 'Continue' : 'Next Step') }}
-          <svg *ngIf="currentStep() < 4" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor"
-            stroke-width="2" fill="none">
-            <path d="M5 12h14M12 5l7 7-7 7"></path>
-          </svg>
-        </button>
-      </div>
-    </footer>
   </main>
 
-  <!-- Wide screen: side preview (always visible, updates with form) -->
-  <aside class="builder-preview">
+  <!-- Wide screen (2K 2560px+): side preview for steps 1–3 only; step 4 has its own -->
+  <aside class="builder-preview" [class.builder-preview--step4]="currentStep() === 4">
     <app-preview-card></app-preview-card>
   </aside>
 

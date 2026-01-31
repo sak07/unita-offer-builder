@@ -13,6 +13,7 @@ import { OfferingType } from '../../interfaces/offering.interface';
 })
 export class StepSelectionComponent {
   @Output() next = new EventEmitter<void>();
+  @Output() openPreview = new EventEmitter<void>();
   types: OfferingType[] = ['Product', 'Service', 'Subscription'];
 
   constructor(public state: BuilderStateService) { }

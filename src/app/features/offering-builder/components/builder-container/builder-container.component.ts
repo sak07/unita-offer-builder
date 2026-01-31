@@ -35,6 +35,14 @@ export class BuilderContainerComponent {
 
     constructor(public state: BuilderStateService) { }
 
+    /** Step 1 is complete when an offering type is chosen and, if Product, a product sub-type (Physical/Digital) is chosen. */
+    step1Complete(): boolean {
+        const o = this.state.offering();
+        if (!o.type) return false;
+        if (o.type === 'Product') return !!o.productType;
+        return true;
+    }
+
     nextStep() {
         this.currentStep.update((s: number) => Math.min(s + 1, 4));
     }

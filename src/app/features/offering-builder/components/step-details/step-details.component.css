@@ -8,14 +8,21 @@
     min-height: 100vh;
 }
 
-/* Heading Section */
+/* Heading Section: title left, Preview Card button right */
 .heading-section {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
 }
 
-.heading-text h1 {
+.heading-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.heading-section h1 {
     font-size: 1.875rem;
     font-weight: 700;
     color: #1f2937;
@@ -23,36 +30,31 @@
     line-height: 1.2;
 }
 
-.heading-text p {
+.heading-section p {
     font-size: 1rem;
     color: #6b7280;
     margin: 0;
 }
 
-.preview-btn {
+.preview-card-btn {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    background: linear-gradient(135deg, #e07a7a 0%, #d66b6b 100%);
-    color: white;
-    border: none;
-    padding: 0.875rem 1.25rem;
-    border-radius: 0.75rem;
-    font-size: 0.9375rem;
+    padding: 0.6rem 1rem;
+    border-radius: 12px;
     font-weight: 600;
+    font-size: 0.875rem;
+    color: white;
+    background: #f06a6a;
+    border: none;
     cursor: pointer;
-    box-shadow: 0 4px 14px rgba(214, 107, 107, 0.35);
-    transition: all 0.2s ease;
+    flex-shrink: 0;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
 
-    &:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 6px 20px rgba(214, 107, 107, 0.4);
-    }
-
-    sup {
-        font-size: 0.625rem;
-        margin-left: 1px;
-    }
+.preview-card-btn:hover {
+    background: #ff8e8e;
+    transform: translateY(-1px);
 }
 
 /* Hint Bar */

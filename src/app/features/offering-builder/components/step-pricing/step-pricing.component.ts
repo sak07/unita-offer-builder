@@ -20,6 +20,7 @@ import { BuilderStateService } from "../../services/builder-state.service";
 export class StepPricingComponent {
   @Output() next = new EventEmitter<void>();
   @Output() back = new EventEmitter<void>();
+  @Output() openPreview = new EventEmitter<void>();
 
   activeTierIndex = signal(0);
   isShowRecommendations = signal(true);
