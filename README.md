@@ -1,4 +1,4 @@
-# Builder
+# Offer Builder
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.2.
 
@@ -53,6 +53,21 @@ ng e2e
 ```
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+
+## Demo Screenshots
+
+You can find demonstration screenshots of the application in the [`/demo`](./demo) folder. These images showcase the offering builder's features, responsive design, and final preview state.
+
+## Project Structure
+
+The project follows a feature-based organization for the Offering Builder:
+
+- **`src/app/features/offering-builder/`**: Core feature directory.
+  - **`components/`**: UI components for each step (Selection, Details, Pricing, Media) and shared elements (Preview Card, Builder Container).
+  - **`services/`**: `BuilderStateService` and `BuilderStore` manage the state using Angular Signals.
+  - **`interfaces/`**: Type definitions for Offerings and Pricing Tiers.
+- **`public/assets/`**: Static icons and public assets.
+- **`/demo/`**: Reserved for screenshots and demonstration media.
 
 ## Additional Resources
 
