@@ -1,17 +1,18 @@
 import { Component, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { BuilderStateService } from '../../services/builder-state.service';
 import { OfferingType } from '../../interfaces/offering.interface';
 
 @Component({
-  selector: 'app-step-selection',
+  selector: 'app-step-one-selection',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './step-selection.component.html',
-  styleUrls: ['./step-selection.component.css'],
+  imports: [CommonModule, FormsModule],
+  templateUrl: './step-one-selection.component.html',
+  styleUrls: ['./step-one-selection.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StepSelectionComponent {
+export class StepOneSelectionComponent {
   @Output() next = new EventEmitter<void>();
   @Output() openPreview = new EventEmitter<void>();
   types: OfferingType[] = ['Product', 'Service', 'Subscription'];

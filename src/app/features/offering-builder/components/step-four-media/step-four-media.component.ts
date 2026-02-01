@@ -5,14 +5,14 @@ import { BuilderStateService } from '../../services/builder-state.service';
 import { PreviewCardComponent } from '../preview-card/preview-card.component';
 
 @Component({
-  selector: 'app-step-media',
+  selector: 'app-step-four-media',
   standalone: true,
   imports: [CommonModule, FormsModule, PreviewCardComponent],
-  templateUrl: './step-media.component.html',
-  styleUrls: ['./step-media.component.css'],
+  templateUrl: './step-four-media.component.html',
+  styleUrls: ['./step-four-media.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StepMediaComponent implements OnDestroy {
+export class StepFourMediaComponent implements OnDestroy {
   @Output() next = new EventEmitter<void>();
   @Output() back = new EventEmitter<void>();
 

@@ -2,10 +2,10 @@ import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BuilderStateService } from '../../services/builder-state.service';
 import { PreviewCardComponent } from '../preview-card/preview-card.component';
-import { StepSelectionComponent } from '../step-selection/step-selection.component';
-import { StepDetailsComponent } from '../step-details/step-details.component';
-import { StepPricingComponent } from '../step-pricing/step-pricing.component';
-import { StepMediaComponent } from '../step-media/step-media.component';
+import { StepOneSelectionComponent } from '../step-one-selection/step-one-selection.component';
+import { StepTwoDetailsComponent } from '../step-two-details/step-two-details.component';
+import { StepThreePricingComponent } from '../step-three-pricing/step-three-pricing.component';
+import { StepFourMediaComponent } from '../step-four-media/step-four-media.component';
 
 @Component({
     selector: 'app-builder-container',
@@ -13,10 +13,10 @@ import { StepMediaComponent } from '../step-media/step-media.component';
     imports: [
         CommonModule,
         PreviewCardComponent,
-        StepSelectionComponent,
-        StepDetailsComponent,
-        StepPricingComponent,
-        StepMediaComponent
+        StepOneSelectionComponent,
+        StepTwoDetailsComponent,
+        StepThreePricingComponent,
+        StepFourMediaComponent
     ],
     templateUrl: './builder-container.component.html',
     styleUrls: ['./builder-container.component.css'],

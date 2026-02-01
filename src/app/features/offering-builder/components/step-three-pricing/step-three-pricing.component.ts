@@ -11,14 +11,14 @@ import { BuilderStateService } from "../../services/builder-state.service";
 import { OfferingType } from "../../interfaces/offering.interface";
 
 @Component({
-  selector: 'app-step-pricing',
+  selector: 'app-step-three-pricing',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './step-pricing.component.html',
-  styleUrls: ['./step-pricing.component.css'],
+  templateUrl: './step-three-pricing.component.html',
+  styleUrls: ['./step-three-pricing.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StepPricingComponent {
+export class StepThreePricingComponent {
   @Output() next = new EventEmitter<void>();
   @Output() back = new EventEmitter<void>();
   @Output() openPreview = new EventEmitter<void>();

@@ -9,7 +9,7 @@
             <div class="stepper-line"></div>
             <div class="steps">
               <div *ngFor="let label of stepLabels; let i = index" class="step-item"
-                [class.active]="currentStep() === (i + 1)" 
+                [class.active]="currentStep() === (i + 1)"
                 [class.completed]="currentStep() > (i + 1) || (i === 0 && step1Complete())">
                 <div class="step-circle">
                   <ng-container *ngIf="currentStep() > (i + 1) || (i === 0 && step1Complete()); else stepNum">
@@ -29,10 +29,13 @@
         <div class="content-width" [class.content-width--wide]="currentStep() === 4">
           <div class="step-wrapper">
             <ng-container [ngSwitch]="currentStep()">
-              <app-step-selection *ngSwitchCase="1" (next)="nextStep()" (openPreview)="togglePreviewDialog()"></app-step-selection>
-              <app-step-details *ngSwitchCase="2" (next)="nextStep()" (back)="prevStep()" (openPreview)="togglePreviewDialog()"></app-step-details>
-              <app-step-pricing *ngSwitchCase="3" (next)="nextStep()" (back)="prevStep()" (openPreview)="togglePreviewDialog()" (goToStep1)="goToStep(1)"></app-step-pricing>
-              <app-step-media *ngSwitchCase="4" (finish)="finish()" (back)="prevStep()"></app-step-media>
+              <app-step-one-selection *ngSwitchCase="1" (next)="nextStep()"
+                (openPreview)="togglePreviewDialog()"></app-step-one-selection>
+              <app-step-two-details *ngSwitchCase="2" (next)="nextStep()" (back)="prevStep()"
+                (openPreview)="togglePreviewDialog()"></app-step-two-details>
+              <app-step-three-pricing *ngSwitchCase="3" (next)="nextStep()" (back)="prevStep()"
+                (openPreview)="togglePreviewDialog()" (goToStep1)="goToStep(1)"></app-step-three-pricing>
+              <app-step-four-media *ngSwitchCase="4" (finish)="finish()" (back)="prevStep()"></app-step-four-media>
             </ng-container>
           </div>
         </div>
@@ -66,7 +69,8 @@
   </aside>
 
   <!-- Narrow screen: Card Preview dialog -->
-  <div *ngIf="showPreviewDialog()" class="preview-dialog-backdrop" (click)="closePreviewDialog($event)" role="presentation">
+  <div *ngIf="showPreviewDialog()" class="preview-dialog-backdrop" (click)="closePreviewDialog($event)"
+    role="presentation">
     <div class="preview-dialog" role="dialog" aria-labelledby="preview-dialog-title" (click)="$event.stopPropagation()">
       <div class="preview-dialog-header">
         <h2 id="preview-dialog-title" class="preview-dialog-title">Card Preview</h2>

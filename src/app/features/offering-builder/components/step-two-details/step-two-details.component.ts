@@ -1,20 +1,23 @@
-import { Component, EventEmitter, Output, ChangeDetectionStrategy, inject } from '@angular/core';
+import { Component, EventEmitter, Output, ChangeDetectionStrategy, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BuilderStateService } from '../../services/builder-state.service';
 
 @Component({
-  selector: 'app-step-details',
+  selector: 'app-step-two-details',
   standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './step-details.component.html',
-  styleUrls: ['./step-details.component.css'],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  templateUrl: './step-two-details.component.html',
+  styleUrls: ['./step-two-details.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StepDetailsComponent {
+export class StepTwoDetailsComponent implements OnInit {
   @Output() next = new EventEmitter<void>();
   @Output() back = new EventEmitter<void>();
   @Output() openPreview = new EventEmitter<void>();
+
+  ngOnInit() {
+  }
 
   newTagInput = '';
 
