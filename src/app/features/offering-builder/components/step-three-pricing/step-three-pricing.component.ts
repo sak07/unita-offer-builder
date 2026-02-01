@@ -4,6 +4,7 @@ import {
   Output,
   ChangeDetectionStrategy,
   signal,
+  computed
 } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
@@ -27,9 +28,6 @@ export class StepThreePricingComponent {
   activeTierIndex = signal(0);
   isShowRecommendations = signal(true);
   showPriceRange = signal(false);
-  /** Which structure item is selected in the recommendation preview (0=Starter, 1=Professional, 2=Enterprise). */
-  selectedStructureIndex = signal(1);
-
   offeringTypes: OfferingType[] = ["Product", "Service", "Subscription"];
 
   constructor(public state: BuilderStateService) {
@@ -66,8 +64,32 @@ export class StepThreePricingComponent {
     }
   }
 
-  useAiStructure() {
-    const aiTiers = [
+  recommendationStructure = computed(() => {
+    const type = this.state.offering().type;
+    if (type === 'Product' || type === 'Subscription') {
+      return [
+        {
+          id: "tier-base",
+          name: "Base",
+          description: "",
+          price: 50,
+          billingType: "Per Project" as const,
+          features: ["Standard Features", "Email Support"],
+        },
+        {
+          id: "tier-advanced",
+          name: "Advanced",
+          description: "",
+          price: 99,
+          billingType: "Per Project" as const,
+          features: ["All Base Features", "Priority Support", "Advanced Analytics"],
+          isPopular: true,
+        },
+      ];
+    }
+
+    // Default for Service
+    return [
       {
         id: "tier-starter",
         name: "Starter",
@@ -87,7 +109,7 @@ export class StepThreePricingComponent {
       },
       {
         id: "tier-ent",
-        name: "Enterprise",
+        name: "Ultimate",
         description: "",
         price: 1200,
         billingType: "Per Project" as const,
@@ -98,32 +120,65 @@ export class StepThreePricingComponent {
         ],
       },
     ];
+  });
 
+  useAiStructure() {
+    const aiTiers = this.recommendationStructure();
     this.state.updateOffering({ tiers: aiTiers });
     this.isShowRecommendations.set(false);
     this.activeTierIndex.set(this.selectedStructureIndex());
   }
+
+  /** Which structure item is selected in the recommendation preview. */
+  selectedStructureIndex = signal(1); // Default to middle/second item which is usually popular
 
   selectStructureItem(index: number) {
     this.selectedStructureIndex.set(index);
   }
 
   manualCreation() {
-    if (this.state.offering().tiers.length === 0) {
-      this.state.addTier();
-    }
+    // Start with the recommended structure as a base
+    const recTiers = this.recommendationStructure();
+    this.state.updateOffering({ tiers: recTiers });
+
+    // Add the new blank tier on top
+    this.state.addTier();
+
     this.isShowRecommendations.set(false);
+    // Select the newly added tier (last one)
+    this.activeTierIndex.set(recTiers.length);
   }
 
   setActiveTier(index: number) {
     this.activeTierIndex.set(index);
   }
 
+  addNewTier() {
+    this.state.addTier();
+    // Select the newly added tier (last one)
+    setTimeout(() => {
+      this.activeTierIndex.set(this.state.offering().tiers.length - 1);
+    });
+  }
+
   deleteActiveTier() {
     const tierId = this.activeTier.id;
+    const currentIndex = this.activeTierIndex();
     this.state.removeTier(tierId);
-    this.activeTierIndex.set(0);
-    this.isShowRecommendations.set(true);
+
+    // If tiers remain, adjust index
+    const remainingCount = this.state.offering().tiers.length;
+    if (remainingCount > 0) {
+      // If we deleted the last one, go to the new last one. Otherwise stay at same index (which is now the next one)
+      if (currentIndex >= remainingCount) {
+        this.activeTierIndex.set(remainingCount - 1);
+      }
+      // Stay in editor view
+    } else {
+      // No tiers left, go back to recommendations
+      this.activeTierIndex.set(0);
+      this.isShowRecommendations.set(true);
+    }
   }
 
   get yearlyOriginalPrice() {
@@ -142,5 +197,9 @@ export class StepThreePricingComponent {
       hasYearlyDiscount: checked,
       yearlyDiscountPercentage: checked ? 20 : 0,
     });
+  }
+
+  trackByIndex(index: number, obj: any): any {
+    return index;
   }
 }

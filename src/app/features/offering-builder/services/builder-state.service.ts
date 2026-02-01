@@ -43,10 +43,23 @@ export class BuilderStateService {
     }
 
     updateTier(tierId: string, partial: Partial<PricingTier>) {
-        this.offeringSignal.update((state: Offering) => ({
-            ...state,
-            tiers: state.tiers.map((t: PricingTier) => t.id === tierId ? { ...t, ...partial } : t)
-        }));
+        this.offeringSignal.update((state: Offering) => {
+            // If setting a tier as popular, unmark others
+            const isSettingPopular = partial.isPopular === true;
+
+            return {
+                ...state,
+                tiers: state.tiers.map((t: PricingTier) => {
+                    if (t.id === tierId) {
+                        return { ...t, ...partial };
+                    }
+                    if (isSettingPopular) {
+                        return { ...t, isPopular: false };
+                    }
+                    return t;
+                })
+            };
+        });
     }
 
     addTier() {
