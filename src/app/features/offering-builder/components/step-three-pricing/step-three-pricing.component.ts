@@ -26,7 +26,6 @@ export class StepThreePricingComponent {
   @Output() openPreview = new EventEmitter<void>();
   @Output() goToStep1 = new EventEmitter<void>();
 
-  activeTierIndex = signal(0);
   isShowRecommendations = signal(true);
   showPriceRange = signal(false);
   offeringTypes: OfferingType[] = ["Product", "Service", "Subscription"];
@@ -50,13 +49,28 @@ export class StepThreePricingComponent {
   }
 
   get activeTier() {
-    return this.state.offering().tiers[this.activeTierIndex()];
+    const tiers = this.state.offering().tiers;
+    const selected = tiers.find(t => t.isSelected);
+    const fallback = tiers[0];
+
+    return selected || fallback;
+  }
+
+  get activeTierIndex() {
+    const index = this.state.offering().tiers.findIndex(t => t.isSelected);
+    return index >= 0 ? index : 0;
   }
 
   onOfferingTypeChange(type: OfferingType | null): void {
     if (!type) return;
-    this.state.updateOffering({ type, productType: type === "Product" ? null : undefined });
-    this.goToStep1.emit();
+
+    // If changing from an existing type, reset everything and go to Step 1
+    const currentType = this.state.offering().type;
+    if (currentType && currentType !== type) {
+      this.state.reset();
+      this.state.updateOffering({ type, productType: type === "Product" ? null : undefined });
+      this.goToStep1.emit();
+    }
   }
 
   getOfferingTypeLabel(): string {
@@ -135,7 +149,11 @@ export class StepThreePricingComponent {
     const aiTiers = this.recommendationStructure();
     this.state.updateOffering({ tiers: aiTiers });
     this.isShowRecommendations.set(false);
-    this.activeTierIndex.set(this.selectedStructureIndex());
+    // Select the tier at the selected structure index
+    const selectedTier = aiTiers[this.selectedStructureIndex()];
+    if (selectedTier) {
+      this.state.selectTier(selectedTier.id);
+    }
   }
 
   /** Which structure item is selected in the recommendation preview. */
@@ -155,37 +173,47 @@ export class StepThreePricingComponent {
 
     this.isShowRecommendations.set(false);
     // Select the newly added tier (last one)
-    this.activeTierIndex.set(recTiers.length);
+    const newTierId = this.state.offering().tiers[recTiers.length]?.id;
+    if (newTierId) {
+      this.state.selectTier(newTierId);
+    }
   }
 
   setActiveTier(index: number) {
-    this.activeTierIndex.set(index);
+    const tier = this.state.offering().tiers[index];
+    if (tier) {
+      this.state.selectTier(tier.id);
+    }
   }
 
   addNewTier() {
     this.state.addTier();
     // Select the newly added tier (last one)
     setTimeout(() => {
-      this.activeTierIndex.set(this.state.offering().tiers.length - 1);
+      const tiers = this.state.offering().tiers;
+      const newTier = tiers[tiers.length - 1];
+      if (newTier) {
+        this.state.selectTier(newTier.id);
+      }
     });
   }
 
   deleteActiveTier() {
     const tierId = this.activeTier.id;
-    const currentIndex = this.activeTierIndex();
+    const currentIndex = this.activeTierIndex;
     this.state.removeTier(tierId);
 
-    // If tiers remain, adjust index
-    const remainingCount = this.state.offering().tiers.length;
-    if (remainingCount > 0) {
-      // If we deleted the last one, go to the new last one. Otherwise stay at same index (which is now the next one)
-      if (currentIndex >= remainingCount) {
-        this.activeTierIndex.set(remainingCount - 1);
+    // If tiers remain, select appropriate tier
+    const remainingTiers = this.state.offering().tiers;
+    if (remainingTiers.length > 0) {
+      // If we deleted the last one, select the new last one. Otherwise select at same index
+      const newIndex = currentIndex >= remainingTiers.length ? remainingTiers.length - 1 : currentIndex;
+      const tierToSelect = remainingTiers[newIndex];
+      if (tierToSelect) {
+        this.state.selectTier(tierToSelect.id);
       }
-      // Stay in editor view
     } else {
       // No tiers left, go back to recommendations
-      this.activeTierIndex.set(0);
       this.isShowRecommendations.set(true);
     }
   }

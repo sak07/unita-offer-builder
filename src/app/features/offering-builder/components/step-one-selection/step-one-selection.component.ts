@@ -20,6 +20,12 @@ export class StepOneSelectionComponent {
   constructor(public state: BuilderStateService) { }
 
   selectType(type: OfferingType) {
+    // If changing from an existing type, reset everything
+    const currentType = this.state.offering().type;
+    if (currentType && currentType !== type) {
+      this.state.reset();
+    }
+
     this.state.updateOffering({ type, productType: null });
 
     // Update existing tiers with sensible defaults for the type

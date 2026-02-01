@@ -27,6 +27,7 @@ export interface PricingTier {
     supersedesTierId?: string;
     hasYearlyDiscount?: boolean;
     yearlyDiscountPercentage?: number;
+    isSelected?: boolean;
 }
 
 export interface Offering {
@@ -58,7 +59,8 @@ export const DEFAULT_OFFERING: Offering = {
             description: '',
             price: 0,
             billingType: 'Per Project',
-            features: ['']
+            features: [''],
+            isSelected: true
         }
     ],
     gallery: [],

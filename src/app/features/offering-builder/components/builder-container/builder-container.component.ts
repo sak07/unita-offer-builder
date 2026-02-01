@@ -44,6 +44,27 @@ export class BuilderContainerComponent {
     }
 
     handleNextStep() {
+        // On Step 2, validate that at least one feature is added
+        if (this.currentStep() === 2) {
+            const hasFeatures = this.state.offering().features.some(f => f.trim().length > 0);
+            if (!hasFeatures) {
+                alert('Please add at least one feature before proceeding.');
+                return;
+            }
+        }
+
+        // On Step 3, validate that price is set or quote-only is selected
+        if (this.currentStep() === 3) {
+            const hasValidPrice = this.state.offering().tiers.some(tier =>
+                tier.isQuoteOnly || tier.price > 0
+            );
+
+            if (!hasValidPrice) {
+                alert('Please add a price or select "Request Quote" for at least one tier before proceeding.');
+                return;
+            }
+        }
+
         // On Step 4, finish the flow
         if (this.currentStep() === 4) {
             this.finish();
@@ -76,8 +97,7 @@ export class BuilderContainerComponent {
     }
 
     finish() {
-        alert('✅ Offering created successfully!');
-        console.log('Final Offering Data:', this.state.offering());
+        alert('Offering created successfully!');
         // Reset state and go back to step 1
         this.state.reset();
         this.currentStep.set(1);

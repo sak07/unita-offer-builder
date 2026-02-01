@@ -30,7 +30,7 @@
 /* Single light-gray panel: stepper, content, footer inside one elevated box */
 .main-panel {
     width: 100%;
-    max-width: 70rem;
+    max-width: 1258px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -90,7 +90,7 @@
     .builder-preview {
         display: block;
         position: absolute;
-        right: 2rem;
+        right: calc((100vw - 1258px) / 2 - 400px - 6rem);
         top: 0;
         width: 380px;
     }
@@ -98,6 +98,13 @@
     .builder-preview--step4 {
         display: none !important;
     }
+}
+
+.preview-heading {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 0 0 1.5rem 0;
 }
 
 .stepper-line {

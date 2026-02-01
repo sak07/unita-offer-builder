@@ -15,8 +15,7 @@
 
         <!-- Description -->
         <p class="card-description">
-            {{ state.offering().tagline || state.offering().description || 'High-precision 3-axis CNC machining center
-            for metal fabrication and precision parts manufacturing.' }}
+            {{ state.offering().tagline || state.offering().description || 'Offering tagline' }}
         </p>
 
         <!-- Features List -->
@@ -27,28 +26,38 @@
             </li>
         </ul>
 
-        <!-- Tiers Badge -->
-        <div class="tiers-badge-wrapper" *ngIf="state.previewTierCount() > 0">
-            <span class="tiers-badge">
-                +{{ state.previewTierCount() }} Tiers
-            </span>
+        <!-- Tier Badge -->
+        <div class="card-footer">
+            <span class="tier-badge">+{{ state.offering().tiers.length }} Tier{{ state.offering().tiers.length !== 1 ?
+                's' : '' }}</span>
         </div>
 
-        <!-- Price -->
-        <div class="price-display">
-            <ng-container *ngIf="!state.priceDisplay().isQuoteOnly; else quoteOnly">
-                <span class="price-value">NZD {{ state.priceDisplay().min || '45' }}</span>
-                <span class="price-period" *ngIf="state.priceDisplay().period">/{{ state.priceDisplay().period }}</span>
+        <!-- Price Section -->
+        <div class="card-price" *ngIf="state.priceDisplay().isQuoteOnly || state.priceDisplay().min > 0">
+            <ng-container *ngIf="!state.priceDisplay().isQuoteOnly">
+                <!-- Single Price -->
+                <ng-container *ngIf="!state.priceDisplay().max">
+                    <span class="price-amount">{{ state.priceDisplay().currency }} {{ state.priceDisplay().min }}</span>
+                    <span class="price-period" *ngIf="state.priceDisplay().period">/{{ state.priceDisplay().period
+                        }}</span>
+                </ng-container>
+
+                <!-- Price Range -->
                 <ng-container *ngIf="state.priceDisplay().max">
-                    <span class="price-separator"> — </span>
-                    <span class="price-value">NZD {{ state.priceDisplay().max }}</span>
+                    <span class="price-amount">{{ state.priceDisplay().currency }} {{ state.priceDisplay().min }}</span>
+                    <span class="price-period" *ngIf="state.priceDisplay().period">/{{ state.priceDisplay().period
+                        }}</span>
+                    <span class="price-separator">—</span>
+                    <span class="price-amount">{{ state.priceDisplay().currency }} {{ state.priceDisplay().max }}</span>
                     <span class="price-period" *ngIf="state.priceDisplay().period">/{{ state.priceDisplay().period
                         }}</span>
                 </ng-container>
             </ng-container>
-            <ng-template #quoteOnly>
-                <span class="price-value">Request Quote</span>
-            </ng-template>
+
+            <!-- Quote Only -->
+            <ng-container *ngIf="state.priceDisplay().isQuoteOnly">
+                <span class="quote-text">Request Quote</span>
+            </ng-container>
         </div>
     </div>
 </div>

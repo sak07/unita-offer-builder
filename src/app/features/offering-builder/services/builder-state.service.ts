@@ -23,15 +23,14 @@ export class BuilderStateService {
 
     readonly previewFeatures = computed(() => {
         const features = this.offeringSignal().features;
-        // If user added features, use them (up to 3).
-        if (features && features.length > 0 && features[0]) {
-            return features.slice(0, 3);
+        // Filter out empty features and use up to 3
+        const nonEmptyFeatures = features.filter(f => f && f.trim().length > 0);
+        if (nonEmptyFeatures.length > 0) {
+            return nonEmptyFeatures.slice(0, 3);
         }
         // Fallback features if none exist
         return [
-            "Applicable to multiple situations",
-            "Free initial Consultation",
-            "Free initial Consultation"
+            "No features added"
         ];
     });
 
@@ -39,8 +38,8 @@ export class BuilderStateService {
         const tiers: PricingTier[] = this.offeringSignal().tiers;
         if (!tiers.length) return { min: 0, max: null, period: null, isQuoteOnly: false, currency: 'NZD' };
 
-        // Use Popular tier if available, otherwise first tier
-        let displayTier = tiers.find(t => t.isPopular) || tiers[0];
+        // Use selected tier if available, otherwise popular tier, otherwise first tier
+        let displayTier = tiers.find(t => t.isSelected) || tiers.find(t => t.isPopular) || tiers[0];
 
         return {
             min: displayTier.price,
@@ -81,6 +80,16 @@ export class BuilderStateService {
                 })
             };
         });
+    }
+
+    selectTier(tierId: string) {
+        this.offeringSignal.update((state: Offering) => ({
+            ...state,
+            tiers: state.tiers.map((t: PricingTier) => ({
+                ...t,
+                isSelected: t.id === tierId
+            }))
+        }));
     }
 
     addTier() {

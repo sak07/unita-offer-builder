@@ -347,6 +347,9 @@
   align-items: baseline;
   gap: 4px;
   flex-wrap: wrap;
+  padding-top: 12px;
+  margin-top: 12px;
+  border-top: 1px solid #e5e7eb;
 
   .price-value {
     font-size: 14px;

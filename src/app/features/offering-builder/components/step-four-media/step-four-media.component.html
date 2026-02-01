@@ -14,14 +14,16 @@
                         <span class="field-label">Thumbnail</span>
                         <div class="thumbnail-upload" (click)="thumbnailInput.click()">
                             <div *ngIf="state.offering().thumbnail" class="thumbnail-preview-wrap">
-                                <img [src]="state.offering().thumbnail" class="thumbnail-preview" alt="Thumbnail preview">
+                                <img [src]="state.offering().thumbnail" class="thumbnail-preview"
+                                    alt="Thumbnail preview">
                             </div>
                             <div *ngIf="!state.offering().thumbnail" class="upload-placeholder">
                                 <span class="material-icons" style="font-size: 32px;">image</span>
                                 <span class="upload-text">Drop or click to upload Thumbnail Image</span>
                                 <span class="upload-subtext">.PNG, .JPG and .WEBP supported</span>
                             </div>
-                            <input #thumbnailInput type="file" hidden accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp"
+                            <input #thumbnailInput type="file" hidden
+                                accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp"
                                 (change)="onThumbnailFileChange($event)">
                         </div>
                     </div>
@@ -36,7 +38,8 @@
                                 <span class="material-icons" style="font-size: 20px;">add</span>
                                 <span>Add</span>
                             </ng-template>
-                            <input #galleryInput1 type="file" hidden accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp"
+                            <input #galleryInput1 type="file" hidden
+                                accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp"
                                 (change)="onGalleryFileChange($event, 0)">
                         </div>
                         <div class="gallery-slot" (click)="galleryInput2.click()">
@@ -47,7 +50,8 @@
                                 <span class="material-icons" style="font-size: 20px;">add</span>
                                 <span>Add</span>
                             </ng-template>
-                            <input #galleryInput2 type="file" hidden accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp"
+                            <input #galleryInput2 type="file" hidden
+                                accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp"
                                 (change)="onGalleryFileChange($event, 1)">
                         </div>
                     </div>
@@ -56,12 +60,11 @@
                 <div class="color-section">
                     <p class="label-hint">No Images? Choose a fallback color:</p>
                     <div class="color-grid">
-                        <div *ngFor="let color of colors" 
-                             class="color-swatch" 
-                             [style.background]="color.gradient"
-                             [class.active]="state.offering().themeColor === color.value"
-                             (click)="setThemeColor(color.value, color.gradient)">
-                             <span *ngIf="state.offering().themeColor === color.value" class="material-icons" style="font-size: 20px; color: white;">check</span>
+                        <div *ngFor="let color of colors" class="color-swatch" [style.background]="color.gradient"
+                            [class.active]="state.offering().themeColor === color.value"
+                            (click)="setThemeColor(color.value, color.gradient)">
+                            <span *ngIf="state.offering().themeColor === color.value" class="material-icons"
+                                style="font-size: 20px; color: white;">check</span>
                         </div>
                     </div>
                 </div>
@@ -72,15 +75,13 @@
         <div class="preview-column">
             <div class="preview-card">
                 <h2 class="preview-label">Card Preview</h2>
-                
+
                 <!-- Inline Preview Card -->
                 <div class="offering-preview-card">
                     <div class="preview-image-container"
-                         [style.background]="state.offering().thumbnail ? 'transparent' : (state.offering().themeGradient || colors[0].gradient)">
-                        <img *ngIf="state.offering().thumbnail" 
-                             [src]="state.offering().thumbnail"
-                             class="preview-card-image" 
-                             alt="Offering thumbnail">
+                        [style.background]="state.offering().thumbnail ? 'transparent' : (state.offering().themeGradient || colors[0].gradient)">
+                        <img *ngIf="state.offering().thumbnail" [src]="state.offering().thumbnail"
+                            class="preview-card-image" alt="Offering thumbnail">
                         <div *ngIf="!state.offering().thumbnail" class="image-placeholder">
                             <span class="material-icons" style="font-size: 48px;">image</span>
                         </div>
@@ -88,41 +89,50 @@
 
                     <div class="preview-content">
                         <h3 class="preview-title">{{ state.offering().name || 'Offering Name' }}</h3>
-                        
-                        <p class="preview-tagline">{{ state.offering().tagline || 'High-precision 3-axis CNC machining center for metal fabrication and precision parts manufacturing.' }}</p>
-                        
-                        <ul class="preview-features" *ngIf="state.offering().features.length > 0">
-                            <li *ngFor="let feat of state.offering().features.slice(0, 3)">
+
+                        <p class="preview-tagline">{{ state.offering().tagline || 'Offering tagline' }}</p>
+
+                        <ul class="preview-features"
+                            *ngIf="state.previewFeatures().length > 0 && state.previewFeatures()[0] !== 'No features added'">
+                            <li *ngFor="let feat of state.previewFeatures()">
                                 <span class="bullet"></span>
                                 {{ feat }}
                             </li>
                         </ul>
-                        <ul class="preview-features" *ngIf="state.offering().features.length === 0">
-                            <li><span class="bullet"></span>Applicable to multiple situations</li>
-                            <li><span class="bullet"></span>Free initial Consultation</li>
-                            <li><span class="bullet"></span>Free initial Consultation</li>
-                        </ul>
 
                         <div class="preview-footer">
-                            <span *ngIf="state.offering().tiers.length > 1" class="tiers-badge">
-                                +{{ state.offering().tiers.length }} Tiers
-                            </span>
-                            <span *ngIf="state.offering().tiers.length <= 1" class="tiers-badge">
-                                +3 Tiers
+                            <span class="tiers-badge">
+                                +{{ state.offering().tiers.length }} Tier{{ state.offering().tiers.length !== 1 ? 's' :
+                                '' }}
                             </span>
                         </div>
 
-                        <div class="preview-price">
-                            <ng-container *ngIf="!state.priceDisplay().isQuoteOnly; else quoteOnly">
-                                <span class="price-value">NZD {{ state.priceDisplay().min || '45' }}</span>
-                                <span class="price-period">/hr</span>
-                                <span class="price-separator">—</span>
-                                <span class="price-value">NZD {{ state.priceDisplay().max || '120' }}</span>
-                                <span class="price-period">/hr</span>
+                        <div class="preview-price"
+                            *ngIf="state.priceDisplay().isQuoteOnly || state.priceDisplay().min > 0">
+                            <ng-container *ngIf="!state.priceDisplay().isQuoteOnly">
+                                <!-- Single Price -->
+                                <ng-container *ngIf="!state.priceDisplay().max">
+                                    <span class="price-value">NZD {{ state.priceDisplay().min }}</span>
+                                    <span class="price-period" *ngIf="state.priceDisplay().period">/{{
+                                        state.priceDisplay().period }}</span>
+                                </ng-container>
+
+                                <!-- Price Range -->
+                                <ng-container *ngIf="state.priceDisplay().max">
+                                    <span class="price-value">NZD {{ state.priceDisplay().min }}</span>
+                                    <span class="price-period" *ngIf="state.priceDisplay().period">/{{
+                                        state.priceDisplay().period }}</span>
+                                    <span class="price-separator">—</span>
+                                    <span class="price-value">NZD {{ state.priceDisplay().max }}</span>
+                                    <span class="price-period" *ngIf="state.priceDisplay().period">/{{
+                                        state.priceDisplay().period }}</span>
+                                </ng-container>
                             </ng-container>
-                            <ng-template #quoteOnly>
+
+                            <!-- Quote Only -->
+                            <ng-container *ngIf="state.priceDisplay().isQuoteOnly">
                                 <span class="price-value">Request Quote</span>
-                            </ng-template>
+                            </ng-container>
                         </div>
                     </div>
                 </div>

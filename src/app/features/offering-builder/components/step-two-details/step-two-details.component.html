@@ -45,8 +45,7 @@
           <label>Tagline *</label>
           <div class="input-wrapper">
             <textarea rows="3" [ngModel]="state.offering().tagline"
-              (ngModelChange)="state.updateOffering({ tagline: $event })"
-              placeholder="High-precision 3-axis CNC machining center for metal fabrication and precision parts manufacturing."
+              (ngModelChange)="state.updateOffering({ tagline: $event })" placeholder="Insert tagline..."
               maxlength="100"></textarea>
             <span class="char-count">{{ state.offering().tagline.length }}/100</span>
           </div>
@@ -98,8 +97,7 @@
           <label>Offering Description</label>
           <div class="input-wrapper">
             <textarea rows="5" [ngModel]="state.offering().description"
-              (ngModelChange)="state.updateOffering({ description: $event })"
-              placeholder="High-precision 3-axis CNC machining center for metal fabrication and precision parts manufacturing."
+              (ngModelChange)="state.updateOffering({ description: $event })" placeholder="Insert description..."
               maxlength="350"></textarea>
             <span class="char-count">{{ state.offering().description.length }}/350</span>
           </div>

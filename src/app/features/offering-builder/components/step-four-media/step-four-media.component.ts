@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Output, ChangeDetectionStrategy, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BuilderStateService } from '../../services/builder-state.service';
@@ -12,7 +12,7 @@ import { PreviewCardComponent } from '../preview-card/preview-card.component';
   styleUrls: ['./step-four-media.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StepFourMediaComponent implements OnDestroy {
+export class StepFourMediaComponent implements OnInit, OnDestroy {
   @Output() next = new EventEmitter<void>();
   @Output() back = new EventEmitter<void>();
 
@@ -29,6 +29,13 @@ export class StepFourMediaComponent implements OnDestroy {
   ];
 
   constructor(public state: BuilderStateService) { }
+
+  ngOnInit() {
+    // Set first color as default if no color is selected
+    if (!this.state.offering().themeColor) {
+      this.setThemeColor(this.colors[0].value, this.colors[0].gradient);
+    }
+  }
 
   onThumbnailFileChange(event: Event) {
     const input = event.target as HTMLInputElement;

@@ -106,7 +106,7 @@
         <div class="editor-header">
           <div class="tier-tabs">
             <div *ngFor="let tier of state.offering().tiers; let i = index" (click)="setActiveTier(i)" class="tier-tab"
-              [class.active]="activeTierIndex() === i">
+              [class.active]="activeTierIndex === i">
               <span class="material-icons drag-icon" style="font-size: 12px;">drag_indicator</span>
               {{ tier.name || 'Untitled Tier' }}
               <span *ngIf="tier.isPopular" class="material-icons" style="font-size: 14px; color: #fbbf24;"> <img
