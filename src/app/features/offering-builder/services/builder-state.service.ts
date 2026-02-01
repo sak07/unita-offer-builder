@@ -5,7 +5,7 @@ import { Offering, DEFAULT_OFFERING, PricingTier } from '../interfaces/offering.
     providedIn: 'root'
 })
 export class BuilderStateService {
-    // Main State Signal
+    /** Main State of the Offering Builder */
     private offeringSignal = signal<Offering>(DEFAULT_OFFERING);
 
     // Read-only accessors
@@ -23,7 +23,7 @@ export class BuilderStateService {
 
     readonly previewFeatures = computed(() => {
         const features = this.offeringSignal().features;
-        // Filter out empty features and use up to 3
+        // Logic for preview card: show up to 3 non-empty features
         const nonEmptyFeatures = features.filter(f => f && f.trim().length > 0);
         if (nonEmptyFeatures.length > 0) {
             return nonEmptyFeatures.slice(0, 3);

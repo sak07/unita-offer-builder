@@ -990,3 +990,170 @@ select {
         background: #fef2f2;
     }
 }
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+    .recommendation-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .editor-body {
+        grid-template-columns: 1fr;
+    }
+
+    .editor-left {
+        border-right: none;
+        border-bottom: 1px solid #f3f4f6;
+    }
+}
+
+@media (max-width: 768px) {
+    .heading-section {
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .heading-section h1 {
+        font-size: 1.5rem;
+    }
+
+    .preview-card-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .hint-bar {
+        flex-direction: column;
+        border-radius: 1.5rem;
+    }
+
+    .hint-label {
+        justify-content: center;
+        padding: 0.75rem;
+    }
+
+    .hint-text {
+        padding: 1rem;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .tiers-section-card {
+        padding: 1.25rem 1rem;
+    }
+
+    .editor-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .tier-tabs {
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .tier-tabs::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    .tier-tabs::-webkit-scrollbar-thumb {
+        background: #e5e7eb;
+        border-radius: 2px;
+    }
+
+    .tier-tab {
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+
+    .add-new-tier-btn {
+        margin-left: 0;
+        align-self: flex-start;
+    }
+
+    .editor-left,
+    .editor-right {
+        padding: 1.25rem 1rem;
+        gap: 1.5rem;
+    }
+
+    .pricing-info-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .info-badge {
+        justify-content: center;
+    }
+
+    .adjust-type-link {
+        justify-content: center;
+    }
+
+    .price-range-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .price-input-box.single,
+    .price-input-box.with-period {
+        max-width: none;
+    }
+
+    .yearly-discount-box {
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .discount-col,
+    .user-pays-col {
+        width: 100%;
+    }
+
+    .discount-select-wrapper select {
+        width: 100%;
+    }
+
+    .editor-footer {
+        flex-direction: column;
+        gap: 1.25rem;
+        align-items: stretch;
+    }
+
+    .popular-toggle {
+        justify-content: center;
+    }
+
+    .delete-tier-btn {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .recommendation-card {
+        padding: 1.25rem;
+    }
+
+    .structure-preview {
+        flex-direction: column;
+    }
+
+    .structure-item {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .manual-card {
+        padding: 1.5rem;
+    }
+
+    .billing-toggle {
+        flex-direction: column;
+        border-radius: 1rem;
+    }
+
+    .billing-opt {
+        border-radius: 0.75rem;
+    }
+}

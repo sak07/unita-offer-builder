@@ -8,115 +8,110 @@
         </div>
         <button type="button" class="preview-card-btn" (click)="openPreview.emit()" aria-label="Preview card">
             <img src="assets/preview.png" alt="Preview" class="preview-icon" />
-      Preview Card*
+            Preview Card*
         </button>
     </div>
 
-    <!-- Based on your type of company -->
-    <div class="company-section">
-        <h3 class="company-section-title">Based on your type of company:</h3>
-        <div class="company-section-row">
-            <div class="company-type-selector">
-                <span class="company-type-label">Company Type</span>
-                <span class="company-type-value">
-                    <span class="material-icons" style="font-size: 16px;">business_center</span>
-                    Consultancy
-                </span>
-            </div>
-            <span class="categories-label">Categories:</span>
-            <div class="category-pills">
-                <button type="button" class="category-pill">Law</button>
-                <button type="button" class="category-pill">Notary</button>
-                <button type="button" class="category-pill">Legal Services</button>
-            </div>
+</div>
+<div class="company-section">
+    <h3 class="company-section-title">Based on your type of company:</h3>
+    <div class="company-section-row">
+        <div class="company-type-selector">
+            <span class="company-type-label">Company Type</span>
+            <span class="company-type-value">
+                <span class="material-icons" style="font-size: 16px;">business_center</span>
+                Consultancy
+            </span>
+        </div>
+        <span class="categories-label">Categories:</span>
+        <div class="category-pills">
+            <button type="button" class="category-pill">Law</button>
+            <button type="button" class="category-pill">Notary</button>
+            <button type="button" class="category-pill">Legal Services</button>
         </div>
     </div>
-    <div class="ai-suggestion">
-        <span class="material-icons ai-icon" style="font-size: 18px;">auto_awesome</span>
-        <span class="ai-text">Unita AI suggests:</span>
-        <span class="ai-value">Service</span>
+</div>
+<div class="ai-suggestion">
+    <span class="material-icons ai-icon" style="font-size: 18px;">auto_awesome</span>
+    <span class="ai-text">Unita AI suggests:</span>
+    <span class="ai-value">Service</span>
+</div>
+
+</div>
+<div class="cards-section">
+    <h2 class="section-title">Pick Offering Type</h2>
+
+    <div class="offering-cards">
+        <div class="offering-card" [class.selected]="state.offering().type === 'Product'"
+            (click)="selectType('Product')">
+            <div class="card-icon" style="--icon-url: url('assets/product_icon.png')">
+                <img src="assets/product_icon.png" alt="Product" class="card-icon-img" />
+                <span class="card-icon-mask" aria-hidden="true"></span>
+            </div>
+            <span class="card-title">Product</span>
+            <span class="card-description">Goods to sell, physical or digital</span>
+        </div>
+
+    </div>
+    <div class="offering-card offering-card--service" [class.selected]="state.offering().type === 'Service'"
+        (click)="selectType('Service')">
+        <span class="suggested-tag">Suggested!</span>
+        <div class="card-icon" style="--icon-url: url('assets/service_icon.png')">
+            <img src="assets/service_icon.png" alt="Service" class="card-icon-img" />
+            <span class="card-icon-mask" aria-hidden="true"></span>
+        </div>
+        <span class="card-title">Service</span>
+        <span class="card-description">Work you provide, project-based<br>or in installments</span>
     </div>
 
-    <!-- Selection Cards Section -->
-    <div class="cards-section">
-        <h2 class="section-title">Pick Offering Type</h2>
-
-        <div class="offering-cards">
-            <!-- Product -->
-            <div class="offering-card" 
-                [class.selected]="state.offering().type === 'Product'"
-                (click)="selectType('Product')">
-                <div class="card-icon" style="--icon-url: url('assets/product_icon.png')">
-                    <img src="assets/product_icon.png" alt="Product" class="card-icon-img" />
-                    <span class="card-icon-mask" aria-hidden="true"></span>
-                </div>
-                <span class="card-title">Product</span>
-                <span class="card-description">Goods to sell, physical or digital</span>
-            </div>
-
-            <!-- Service (Suggested) -->
-            <div class="offering-card offering-card--service" 
-                [class.selected]="state.offering().type === 'Service'"
-                (click)="selectType('Service')">
-                <span class="suggested-tag">Suggested!</span>
-                <div class="card-icon" style="--icon-url: url('assets/service_icon.png')">
-                    <img src="assets/service_icon.png" alt="Service" class="card-icon-img" />
-                    <span class="card-icon-mask" aria-hidden="true"></span>
-                </div>
-                <span class="card-title">Service</span>
-                <span class="card-description">Work you provide, project-based<br>or in installments</span>
-            </div>
-
-            <!-- Subscription -->
-            <div class="offering-card" 
-                [class.selected]="state.offering().type === 'Subscription'"
-                (click)="selectType('Subscription')">
-                <div class="card-icon" style="--icon-url: url('assets/subscription_icon.png')">
-                    <img src="assets/subscription_icon.png" alt="Subscription" class="card-icon-img" />
-                    <span class="card-icon-mask" aria-hidden="true"></span>
-                </div>
-                <span class="card-title">Subscription</span>
-                <span class="card-description">Recurring payments for consistent value</span>
-            </div>
-        </div>
-
-        <!-- Product sub-options: Physical / Digital -->
-        <div *ngIf="state.offering().type === 'Product'" class="product-sub-options">
-            <button type="button" class="product-sub-btn" style="--icon-url: url('assets/physical_product.png')"
-                [class.selected]="state.offering().productType === 'Physical'"
-                (click)="selectProductType('Physical')">
-                <img src="assets/physical_product.png" alt="Physical" class="product-sub-icon" />
-                <span class="product-sub-icon-mask" aria-hidden="true"></span>
-                Physical Product
-            </button>
-            <button type="button" class="product-sub-btn" style="--icon-url: url('assets/digital_product.png')"
-                [class.selected]="state.offering().productType === 'Digital'"
-                (click)="selectProductType('Digital')">
-                <img src="assets/digital_product.png" alt="Digital" class="product-sub-icon product-sub-icon--digital" />
-                <span class="product-sub-icon-mask product-sub-icon-mask--digital" aria-hidden="true"></span>
-                Digital Product
-            </button>
-        </div>
-
-        <!-- Explanation Box -->
-        <div *ngIf="state.offering().type" class="explanation-box">
-            <div class="explanation-icon">
-                <span class="material-icons" style="font-size: 28px;">lightbulb</span>
-            </div>
-            <div class="explanation-content">
-                <h4>{{ state.offering().type }} Explanation</h4>
-                <p *ngIf="state.offering().type === 'Service'">
-                    Works best for companies that offer consultancies and other work you provide.
-                    Configure Pricing Tiers in the next step.
-                </p>
-                <p *ngIf="state.offering().type === 'Product'">
-                    Works best for companies that offer concrete manufactured goods, or software products.
-                </p>
-                <p *ngIf="state.offering().type === 'Subscription'">
-                    Best for memberships or recurring services. Set up billing cycles and access levels in the next step.
-                </p>
-            </div>
-        </div>
+</div>
+<div class="offering-card" [class.selected]="state.offering().type === 'Subscription'"
+    (click)="selectType('Subscription')">
+    <div class="card-icon" style="--icon-url: url('assets/subscription_icon.png')">
+        <img src="assets/subscription_icon.png" alt="Subscription" class="card-icon-img" />
+        <span class="card-icon-mask" aria-hidden="true"></span>
     </div>
+    <span class="card-title">Subscription</span>
+    <span class="card-description">Recurring payments for consistent value</span>
+</div>
+</div>
+
+</div>
+<div *ngIf="state.offering().type === 'Product'" class="product-sub-options">
+    <button type="button" class="product-sub-btn" style="--icon-url: url('assets/physical_product.png')"
+        [class.selected]="state.offering().productType === 'Physical'" (click)="selectProductType('Physical')">
+        <img src="assets/physical_product.png" alt="Physical" class="product-sub-icon" />
+        <span class="product-sub-icon-mask" aria-hidden="true"></span>
+        Physical Product
+    </button>
+    <button type="button" class="product-sub-btn" style="--icon-url: url('assets/digital_product.png')"
+        [class.selected]="state.offering().productType === 'Digital'" (click)="selectProductType('Digital')">
+        <img src="assets/digital_product.png" alt="Digital" class="product-sub-icon product-sub-icon--digital" />
+        <span class="product-sub-icon-mask product-sub-icon-mask--digital" aria-hidden="true"></span>
+        Digital Product
+    </button>
+</div>
+
+</div>
+<div *ngIf="state.offering().type" class="explanation-box">
+    <div class="explanation-icon">
+        <span class="material-icons" style="font-size: 28px;">lightbulb</span>
+    </div>
+    <div class="explanation-content">
+        <h4>{{ state.offering().type }} Explanation</h4>
+        <p *ngIf="state.offering().type === 'Service'">
+            Works best for companies that offer consultancies and other work you provide.
+            Configure Pricing Tiers in the next step.
+        </p>
+        <p *ngIf="state.offering().type === 'Product'">
+            Works best for companies that offer concrete manufactured goods, or software products.
+        </p>
+        <p *ngIf="state.offering().type === 'Subscription'">
+            Best for memberships or recurring services. Set up billing cycles and access levels in the next
+            step.
+        </p>
+    </div>
+</div>
+</div>
 
 </div>

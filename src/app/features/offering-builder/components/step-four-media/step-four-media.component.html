@@ -1,6 +1,5 @@
 <div class="step-container">
     <div class="main-layout">
-        <!-- Left: Editor card -->
         <div class="editor-side">
             <div class="editor-card">
                 <div class="heading-section">
@@ -82,9 +81,6 @@
                         [style.background]="state.offering().thumbnail ? 'transparent' : (state.offering().themeGradient || colors[0].gradient)">
                         <img *ngIf="state.offering().thumbnail" [src]="state.offering().thumbnail"
                             class="preview-card-image" alt="Offering thumbnail">
-                        <div *ngIf="!state.offering().thumbnail" class="image-placeholder">
-                            <span class="material-icons" style="font-size: 48px;">image</span>
-                        </div>
                     </div>
 
                     <div class="preview-content">

@@ -27,7 +27,6 @@
     position: relative;
 }
 
-/* Single light-gray panel: stepper, content, footer inside one elevated box */
 .main-panel {
     width: 100%;
     max-width: 1258px;
@@ -224,7 +223,6 @@
 .footer-btn {
     padding: 0.75rem 1.5rem;
     border-radius: 9999px;
-    /* Rounded pill style from image */
     font-weight: 600;
     transition: all 0.2s ease;
     display: flex;
@@ -280,7 +278,8 @@
     background: #f9fafb;
 }
 
-/* Narrow screen: Card Preview dialog */
+
+/* Dialog: Side preview on large screens */
 .preview-dialog-backdrop {
     position: fixed;
     inset: 0;
@@ -291,6 +290,175 @@
     justify-content: center;
     padding: 1.5rem;
     animation: fadeIn 0.2s ease;
+}
+
+/* Tablet and below adjustments */
+@media (max-width: 768px) {
+    .builder-layout {
+        padding: 1rem;
+    }
+
+    .main-panel {
+        border-radius: 0.75rem;
+    }
+
+    .scroll-area {
+        padding: 0 1rem 1rem;
+    }
+
+    .stepper-row-inner {
+        padding: 1rem;
+    }
+
+    .steps {
+        gap: 0.5rem;
+    }
+
+    .step-number {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+
+    .step-label {
+        font-size: 11px;
+    }
+
+    .footer-actions {
+        padding: 1rem;
+        gap: 0.75rem;
+    }
+
+    .btn {
+        padding: 0.625rem 1.25rem;
+        font-size: 13px;
+    }
+}
+
+/* Mobile adjustments (640px and below) */
+@media (max-width: 640px) {
+    .builder-layout {
+        padding: 0.5rem;
+    }
+
+    .main-panel {
+        border-radius: 0.5rem;
+        min-height: calc(100vh - 1rem);
+    }
+
+    .scroll-area {
+        padding: 0 0.75rem 0.75rem;
+    }
+
+    .stepper-row-inner {
+        padding: 0.75rem;
+    }
+
+    .steps {
+        gap: 0.25rem;
+    }
+
+    .step-item {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    .step-number {
+        width: 24px;
+        height: 24px;
+        font-size: 11px;
+    }
+
+    .step-label {
+        font-size: 9px;
+        text-align: center;
+    }
+
+    .step-connector {
+        display: none;
+    }
+
+    /* Footer improvements on mobile */
+    .footer-inner {
+        padding: 0.75rem 1rem;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        border-radius: 0.75rem;
+        margin-bottom: 0.5rem;
+        justify-content: center;
+    }
+
+    .footer-left,
+    .footer-right {
+        flex: none;
+        width: 100%;
+        justify-content: center;
+        gap: 0.75rem;
+    }
+
+    .footer-left {
+        order: 2;
+        /* Cancel button at the bottom */
+    }
+
+    .footer-right {
+        order: 1;
+        /* Navigation buttons at the top */
+    }
+
+    .footer-btn {
+        padding: 0.625rem 1.25rem;
+        font-size: 14px;
+        min-width: 0;
+        flex: 1;
+        /* Allow buttons to share row if they fit */
+        justify-content: center;
+        white-space: nowrap;
+    }
+
+    .btn-secondary {
+        flex: none;
+        width: auto;
+    }
+
+    .btn-primary {
+        min-width: 120px;
+    }
+
+    /* Preview button on mobile */
+    .preview-btn-mobile {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        bottom: 120px;
+        right: 1.5rem;
+        z-index: 100;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: #f06a6a;
+        color: white;
+        border: none;
+        box-shadow: 0 4px 12px rgba(240, 106, 106, 0.4);
+        cursor: pointer;
+        transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .preview-btn-mobile:active {
+        transform: scale(0.9);
+    }
+
+    .preview-btn-mobile .material-icons {
+        font-size: 28px;
+    }
+}
+
+@media (min-width: 641px) {
+    .preview-btn-mobile {
+        display: none;
+    }
 }
 
 @media (min-width: 2560px) {
@@ -305,7 +473,8 @@
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     max-width: 400px;
     width: 100%;
-    max-height: 90vh;
+    margin: 0 auto;
+    max-height: 85vh;
     overflow: hidden;
     display: flex;
     flex-direction: column;

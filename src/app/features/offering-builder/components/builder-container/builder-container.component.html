@@ -1,6 +1,5 @@
 <div class="builder-layout">
   <main class="builder-content flex flex-col">
-    <!-- Single light-gray panel: stepper, content, footer aligned inside one elevated box -->
     <div class="main-panel">
       <!-- Stepper -->
       <div class="stepper-row">
@@ -24,67 +23,72 @@
         </div>
       </div>
 
-      <!-- Scrollable Content Area -->
-      <div class="scroll-area">
-        <div class="content-width" [class.content-width--wide]="currentStep() === 4">
-          <div class="step-wrapper">
-            <ng-container [ngSwitch]="currentStep()">
-              <app-step-one-selection *ngSwitchCase="1" (next)="nextStep()"
-                (openPreview)="togglePreviewDialog()"></app-step-one-selection>
-              <app-step-two-details *ngSwitchCase="2" (next)="nextStep()" (back)="prevStep()"
-                (openPreview)="togglePreviewDialog()"></app-step-two-details>
-              <app-step-three-pricing *ngSwitchCase="3" (next)="nextStep()" (back)="prevStep()"
-                (openPreview)="togglePreviewDialog()" (goToStep1)="goToStep(1)"></app-step-three-pricing>
-              <app-step-four-media *ngSwitchCase="4" (finish)="finish()" (back)="prevStep()"></app-step-four-media>
-            </ng-container>
-          </div>
+    </div>
+    <div class="scroll-area">
+      <div class="content-width" [class.content-width--wide]="currentStep() === 4">
+        <div class="step-wrapper">
+          <ng-container [ngSwitch]="currentStep()">
+            <app-step-one-selection *ngSwitchCase="1" (next)="nextStep()"
+              (openPreview)="togglePreviewDialog()"></app-step-one-selection>
+            <app-step-two-details *ngSwitchCase="2" (next)="nextStep()" (back)="prevStep()"
+              (openPreview)="togglePreviewDialog()"></app-step-two-details>
+            <app-step-three-pricing *ngSwitchCase="3" (next)="nextStep()" (back)="prevStep()"
+              (openPreview)="togglePreviewDialog()" (goToStep1)="goToStep(1)"></app-step-three-pricing>
+            <app-step-four-media *ngSwitchCase="4" (finish)="finish()" (back)="prevStep()"></app-step-four-media>
+          </ng-container>
         </div>
       </div>
-
-      <!-- Navigation Footer: aligned with panel edges -->
-      <footer class="builder-footer">
-        <div class="footer-inner" [class.footer-inner--wide]="currentStep() === 4">
-          <div class="footer-left">
-            <button (click)="finish()" class="footer-btn btn-secondary">Cancel</button>
-          </div>
-          <div class="footer-right">
-            <button (click)="prevStep()" [disabled]="currentStep() === 1" class="footer-btn btn-outline">
-              <span class="material-icons" style="font-size: 18px;">arrow_back</span>
-              Previous
-            </button>
-            <button (click)="handleNextStep()"
-              [disabled]="(currentStep() === 1 && !step1Complete()) || (currentStep() === 2 && !state.stepTwoComplete())"
-              class="footer-btn btn-primary">
-              {{ currentStep() === 4 ? 'Finish' : (currentStep() === 1 ? 'Continue' : 'Next Step') }}
-              <span *ngIf="currentStep() < 4" class="material-icons" style="font-size: 18px;">arrow_forward</span>
-            </button>
-          </div>
-        </div>
-      </footer>
     </div>
 
-    <!-- Wide screen (2K 2560px+): side preview for steps 1–3 only; step 4 has its own -->
-    <aside class="builder-preview" [class.builder-preview--step4]="currentStep() === 4">
-      <h2 class="preview-heading">Card Preview</h2>
+</div>
+</footer>
+<div class="footer-inner" [class.footer-inner--wide]="currentStep() === 4">
+  <div class="footer-left">
+    <button (click)="finish()" class="footer-btn btn-secondary">Cancel</button>
+  </div>
+  <div class="footer-right">
+    <button (click)="prevStep()" [disabled]="currentStep() === 1" class="footer-btn btn-outline">
+      <span class="material-icons" style="font-size: 18px;">arrow_back</span>
+      Previous
+    </button>
+    <button (click)="handleNextStep()"
+      [disabled]="(currentStep() === 1 && !step1Complete()) || (currentStep() === 2 && !state.stepTwoComplete())"
+      class="footer-btn btn-primary">
+      {{ currentStep() === 4 ? 'Finish' : (currentStep() === 1 ? 'Continue' : 'Next Step') }}
+      <span *ngIf="currentStep() < 4" class="material-icons" style="font-size: 18px;">arrow_forward</span>
+    </button>
+  </div>
+</div>
+</footer>
+</div>
+
+</div>
+<button *ngIf="currentStep() < 4" class="preview-btn-mobile" (click)="togglePreviewDialog()" aria-label="Open Preview">
+  <span class="material-icons">visibility</span>
+</button>
+
+</button>
+<aside class="builder-preview" [class.builder-preview--step4]="currentStep() === 4">
+  <h2 class="preview-heading">Card Preview</h2>
+  <app-preview-card></app-preview-card>
+</aside>
+</main>
+
+
+
+</main>
+<div *ngIf="showPreviewDialog()" class="preview-dialog-backdrop" (click)="closePreviewDialog($event)"
+  role="presentation">
+  <div class="preview-dialog" role="dialog" aria-labelledby="preview-dialog-title" (click)="$event.stopPropagation()">
+    <div class="preview-dialog-header">
+      <h2 id="preview-dialog-title" class="preview-dialog-title">Card Preview</h2>
+      <button type="button" class="preview-dialog-close" (click)="closePreviewDialog()" aria-label="Close">
+        <span class="material-icons" style="font-size: 24px;">close</span>
+      </button>
+    </div>
+    <div class="preview-dialog-body">
       <app-preview-card></app-preview-card>
-    </aside>
-  </main>
-
-
-
-  <!-- Narrow screen: Card Preview dialog -->
-  <div *ngIf="showPreviewDialog()" class="preview-dialog-backdrop" (click)="closePreviewDialog($event)"
-    role="presentation">
-    <div class="preview-dialog" role="dialog" aria-labelledby="preview-dialog-title" (click)="$event.stopPropagation()">
-      <div class="preview-dialog-header">
-        <h2 id="preview-dialog-title" class="preview-dialog-title">Card Preview</h2>
-        <button type="button" class="preview-dialog-close" (click)="closePreviewDialog()" aria-label="Close">
-          <span class="material-icons" style="font-size: 24px;">close</span>
-        </button>
-      </div>
-      <div class="preview-dialog-body">
-        <app-preview-card></app-preview-card>
-      </div>
     </div>
   </div>
+</div>
 </div>

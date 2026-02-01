@@ -13,15 +13,42 @@ body {
 }
 
 /* Tailwind-ish utility classes for the boilerplate */
-.p-6 { padding: 1.5rem; }
-.mb-8 { margin-bottom: 2rem; }
-.text-2xl { font-size: 1.5rem; line-height: 2rem; }
-.font-bold { font-weight: 700; }
-.grid { display: grid; }
-.gap-4 { gap: 1rem; }
-.rounded-xl { border-radius: 0.75rem; }
-.bg-white { background-color: white; }
-.shadow-sm { box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); }
+.p-6 {
+  padding: 1.5rem;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.grid {
+  display: grid;
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+.rounded-xl {
+  border-radius: 0.75rem;
+}
+
+.bg-white {
+  background-color: white;
+}
+
+.shadow-sm {
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
 
 /* Add more utilities as needed or use a CSS framework */
 
@@ -30,6 +57,7 @@ button {
   font-family: inherit;
 }
 
-input, textarea {
+input,
+textarea {
   font-family: inherit;
 }
