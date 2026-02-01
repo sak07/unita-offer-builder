@@ -43,6 +43,15 @@ export class BuilderContainerComponent {
         return true;
     }
 
+    handleNextStep() {
+        // On Step 4, finish the flow
+        if (this.currentStep() === 4) {
+            this.finish();
+            return;
+        }
+        this.nextStep();
+    }
+
     nextStep() {
         this.currentStep.update((s: number) => Math.min(s + 1, 4));
     }
@@ -67,7 +76,10 @@ export class BuilderContainerComponent {
     }
 
     finish() {
-        alert('Offering Complete! Check the console for data.');
+        alert('✅ Offering created successfully!');
         console.log('Final Offering Data:', this.state.offering());
+        // Reset state and go back to step 1
+        this.state.reset();
+        this.currentStep.set(1);
     }
 }

@@ -2,9 +2,7 @@
     <!-- Gradient/Image Header -->
     <div class="card-header"
         [style.background]="state.offering().thumbnail ? 'transparent' : (state.offering().themeGradient || 'linear-gradient(135deg, #e8847c 0%, #b33a4a 50%, #7a1f3d 100%)')">
-        <img *ngIf="state.offering().thumbnail" 
-            [src]="state.offering().thumbnail"
-            class="card-header-image"
+        <img *ngIf="state.offering().thumbnail" [src]="state.offering().thumbnail" class="card-header-image"
             alt="Offering thumbnail">
     </div>
 
@@ -17,37 +15,22 @@
 
         <!-- Description -->
         <p class="card-description">
-            {{ state.offering().tagline || state.offering().description || 'High-precision 3-axis CNC machining center for metal fabrication and precision parts manufacturing.' }}
+            {{ state.offering().tagline || state.offering().description || 'High-precision 3-axis CNC machining center
+            for metal fabrication and precision parts manufacturing.' }}
         </p>
 
         <!-- Features List -->
-        <ul class="features-list" *ngIf="state.offering().features.length > 0 && state.offering().features[0]">
-            <li *ngFor="let feat of state.offering().features.slice(0, 3)" class="feature-item">
+        <ul class="features-list">
+            <li *ngFor="let feat of state.previewFeatures()" class="feature-item">
                 <span class="feature-bullet"></span>
                 <span class="feature-text">{{ feat }}</span>
             </li>
         </ul>
 
-        <!-- Fallback features if none exist -->
-        <ul class="features-list" *ngIf="!state.offering().features.length || !state.offering().features[0]">
-            <li class="feature-item">
-                <span class="feature-bullet"></span>
-                <span class="feature-text">Applicable to multiple situations</span>
-            </li>
-            <li class="feature-item">
-                <span class="feature-bullet"></span>
-                <span class="feature-text">Free initial Consultation</span>
-            </li>
-            <li class="feature-item">
-                <span class="feature-bullet"></span>
-                <span class="feature-text">Free initial Consultation</span>
-            </li>
-        </ul>
-
         <!-- Tiers Badge -->
-        <div class="tiers-badge-wrapper" *ngIf="state.offering().tiers.length > 0">
+        <div class="tiers-badge-wrapper" *ngIf="state.previewTierCount() > 0">
             <span class="tiers-badge">
-                +{{ state.offering().tiers.length }} Tiers
+                +{{ state.previewTierCount() }} Tiers
             </span>
         </div>
 
@@ -59,7 +42,8 @@
                 <ng-container *ngIf="state.priceDisplay().max">
                     <span class="price-separator"> — </span>
                     <span class="price-value">NZD {{ state.priceDisplay().max }}</span>
-                    <span class="price-period" *ngIf="state.priceDisplay().period">/{{ state.priceDisplay().period }}</span>
+                    <span class="price-period" *ngIf="state.priceDisplay().period">/{{ state.priceDisplay().period
+                        }}</span>
                 </ng-container>
             </ng-container>
             <ng-template #quoteOnly>

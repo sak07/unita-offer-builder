@@ -20,41 +20,34 @@
       <span>Hint!</span>
     </div>
     <div class="hint-text">
-      If your offering has tiers or variations, they will be added on the next step. These are details shared by all tiers.
+      If your offering has tiers or variations, they will be added on the next step. These are details shared by all
+      tiers.
     </div>
   </div>
 
   <!-- Core Details Card -->
   <div class="card">
     <h2 class="card-title">Core Details</h2>
-    
+
     <div class="card-grid">
       <!-- Left Column -->
       <div class="left-column">
         <div class="form-group">
-          <label>Offering Name</label>
+          <label>Offering Name *</label>
           <div class="input-wrapper">
-            <input 
-              type="text" 
-              [ngModel]="state.offering().name"
-              (ngModelChange)="state.updateOffering({ name: $event })"
-              placeholder="Insert name..."
-              maxlength="85"
-            >
+            <input type="text" [ngModel]="state.offering().name"
+              (ngModelChange)="state.updateOffering({ name: $event })" placeholder="Insert name..." maxlength="85">
             <span class="char-count">{{ state.offering().name.length }}/85</span>
           </div>
         </div>
 
         <div class="form-group">
-          <label>Tagline</label>
+          <label>Tagline *</label>
           <div class="input-wrapper">
-            <textarea 
-              rows="3"
-              [ngModel]="state.offering().tagline"
+            <textarea rows="3" [ngModel]="state.offering().tagline"
               (ngModelChange)="state.updateOffering({ tagline: $event })"
               placeholder="High-precision 3-axis CNC machining center for metal fabrication and precision parts manufacturing."
-              maxlength="100"
-            ></textarea>
+              maxlength="100"></textarea>
             <span class="char-count">{{ state.offering().tagline.length }}/100</span>
           </div>
         </div>
@@ -65,14 +58,10 @@
         <div class="form-group">
           <label>Key Features <span class="label-hint">(shown as bullet points)</span></label>
           <div class="features-list">
-            <div *ngFor="let feature of state.offering().features; let i = index; trackBy: trackByIndex" class="input-wrapper">
-              <input 
-                type="text" 
-                [ngModel]="feature"
-                (ngModelChange)="state.updateFeature(i, $event)"
-                placeholder="Enter feature..."
-                maxlength="50"
-              >
+            <div *ngFor="let feature of state.offering().features; let i = index; trackBy: trackByIndex"
+              class="input-wrapper">
+              <input type="text" [ngModel]="feature" (ngModelChange)="state.updateFeature(i, $event)"
+                placeholder="Enter feature..." maxlength="50">
               <span class="char-count-inline">{{ feature.length }}/50</span>
             </div>
           </div>
@@ -108,13 +97,10 @@
         <div class="form-group">
           <label>Offering Description</label>
           <div class="input-wrapper">
-            <textarea 
-              rows="5"
-              [ngModel]="state.offering().description"
+            <textarea rows="5" [ngModel]="state.offering().description"
               (ngModelChange)="state.updateOffering({ description: $event })"
               placeholder="High-precision 3-axis CNC machining center for metal fabrication and precision parts manufacturing."
-              maxlength="350"
-            ></textarea>
+              maxlength="350"></textarea>
             <span class="char-count">{{ state.offering().description.length }}/350</span>
           </div>
         </div>
@@ -127,7 +113,8 @@
           <div class="tags-container">
             <div *ngFor="let tag of state.offering().tags" class="tag-chip">
               <span>{{ tag }}</span>
-              <span class="material-icons tag-remove" (click)="state.removeTag(tag)" style="font-size: 12px;">close</span>
+              <span class="material-icons tag-remove" (click)="state.removeTag(tag)"
+                style="font-size: 12px;">close</span>
             </div>
             <button (click)="openTagInput()" class="add-tag-btn">
               <span class="material-icons" style="font-size: 14px;">add</span>

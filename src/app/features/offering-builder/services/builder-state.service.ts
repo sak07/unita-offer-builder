@@ -11,23 +11,44 @@ export class BuilderStateService {
     // Read-only accessors
     readonly offering = this.offeringSignal.asReadonly();
 
+    readonly stepTwoComplete = computed(() => {
+        const { name, tagline } = this.offeringSignal();
+        return !!(name?.trim() && tagline?.trim());
+    });
+
     // Computed Values for Preview Card
-    readonly lowestPrice = computed(() => {
-        const tiers: PricingTier[] = this.offeringSignal().tiers;
-        if (!tiers.length) return 0;
-        return Math.min(...tiers.map((t: PricingTier) => t.price));
+    readonly previewTierCount = computed(() => {
+        return this.offeringSignal().tiers.length;
+    });
+
+    readonly previewFeatures = computed(() => {
+        const features = this.offeringSignal().features;
+        // If user added features, use them (up to 3).
+        if (features && features.length > 0 && features[0]) {
+            return features.slice(0, 3);
+        }
+        // Fallback features if none exist
+        return [
+            "Applicable to multiple situations",
+            "Free initial Consultation",
+            "Free initial Consultation"
+        ];
     });
 
     readonly priceDisplay = computed(() => {
         const tiers: PricingTier[] = this.offeringSignal().tiers;
-        if (!tiers.length) return { min: 0, max: null, period: null, isQuoteOnly: false };
+        if (!tiers.length) return { min: 0, max: null, period: null, isQuoteOnly: false, currency: 'NZD' };
 
-        const firstTier = tiers[0]; // Logic for simple preview
+        // Use Popular tier if available, otherwise first tier
+        let displayTier = tiers.find(t => t.isPopular) || tiers[0];
+
         return {
-            min: firstTier.price,
-            max: firstTier.priceMax,
-            period: firstTier.pricePeriod || (firstTier.billingType === 'Hourly' ? 'hr' : null),
-            isQuoteOnly: firstTier.isQuoteOnly
+            min: displayTier.price,
+            // Only show max if price range is explicitly enabled
+            max: displayTier.isPriceRange ? displayTier.priceMax : null,
+            period: displayTier.pricePeriod || (displayTier.billingType === 'Hourly' ? 'hr' : null),
+            isQuoteOnly: displayTier.isQuoteOnly,
+            currency: 'NZD'
         };
     });
 

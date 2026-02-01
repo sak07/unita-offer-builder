@@ -18,6 +18,7 @@ export interface PricingTier {
     description: string;
     price: number;
     priceMax?: number;
+    isPriceRange?: boolean;
     pricePeriod?: string;
     billingType: BillingType;
     features: string[];

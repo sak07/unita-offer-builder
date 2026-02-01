@@ -214,7 +214,8 @@
                 <div class="label-with-toggle">
                   <label>Price Range</label>
                   <label *ngIf="state.offering().type === 'Service'" class="toggle-switch">
-                    <input type="checkbox" [(ngModel)]="showPriceRange">
+                    <input type="checkbox" [(ngModel)]="showPriceRange"
+                      (ngModelChange)="state.updateTier(activeTier.id, { isPriceRange: $event })">
                     <span class="toggle-slider"></span>
                   </label>
                 </div>

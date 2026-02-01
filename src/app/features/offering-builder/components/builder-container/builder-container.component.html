@@ -1,5 +1,5 @@
 <div class="builder-layout">
-  <main class="builder-content">
+  <main class="builder-content flex flex-col">
     <!-- Single light-gray panel: stepper, content, footer aligned inside one elevated box -->
     <div class="main-panel">
       <!-- Stepper -->
@@ -52,7 +52,8 @@
               <span class="material-icons" style="font-size: 18px;">arrow_back</span>
               Previous
             </button>
-            <button (click)="nextStep()" [disabled]="currentStep() === 1 && !step1Complete()"
+            <button (click)="handleNextStep()"
+              [disabled]="(currentStep() === 1 && !step1Complete()) || (currentStep() === 2 && !state.stepTwoComplete())"
               class="footer-btn btn-primary">
               {{ currentStep() === 4 ? 'Finish' : (currentStep() === 1 ? 'Continue' : 'Next Step') }}
               <span *ngIf="currentStep() < 4" class="material-icons" style="font-size: 18px;">arrow_forward</span>
@@ -61,12 +62,14 @@
         </div>
       </footer>
     </div>
+
+    <!-- Wide screen (2K 2560px+): side preview for steps 1–3 only; step 4 has its own -->
+    <aside class="builder-preview" [class.builder-preview--step4]="currentStep() === 4">
+      <app-preview-card></app-preview-card>
+    </aside>
   </main>
 
-  <!-- Wide screen (2K 2560px+): side preview for steps 1–3 only; step 4 has its own -->
-  <aside class="builder-preview" [class.builder-preview--step4]="currentStep() === 4">
-    <app-preview-card></app-preview-card>
-  </aside>
+
 
   <!-- Narrow screen: Card Preview dialog -->
   <div *ngIf="showPreviewDialog()" class="preview-dialog-backdrop" (click)="closePreviewDialog($event)"

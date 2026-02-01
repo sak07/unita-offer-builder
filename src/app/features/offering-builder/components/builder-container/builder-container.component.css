@@ -7,17 +7,14 @@
 }
 
 .builder-layout {
-    display: grid;
-    grid-template-columns: 1fr;
     min-height: 100vh;
     background-color: #ffffff;
     padding: 2rem 1.5rem;
 }
 
-/* 2K wide (2560px): show side preview column for steps 1–3 */
 @media (min-width: 2560px) {
     .builder-layout {
-        grid-template-columns: 1fr 450px;
+        padding: 2rem;
     }
 }
 
@@ -26,7 +23,8 @@
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
-    /* overflow: hidden; */
+    width: 100%;
+    position: relative;
 }
 
 /* Single light-gray panel: stepper, content, footer inside one elevated box */
@@ -37,11 +35,9 @@
     display: flex;
     flex-direction: column;
     min-height: calc(100vh - 4rem);
-    /* max-height: calc(100vh - 4rem); */
     background-color: #f1f5f9;
     border-radius: 1rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.04);
-    /* overflow: hidden; */
 }
 
 .scroll-area {
@@ -84,11 +80,6 @@
 /* Side preview: only at 2K (2560px), and hidden on step 4 (step 4 has its own) */
 .builder-preview {
     display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-    background: white;
-    border-left: 1px solid #f3f4f6;
 }
 
 .builder-preview--step4 {
@@ -97,7 +88,11 @@
 
 @media (min-width: 2560px) {
     .builder-preview {
-        display: flex;
+        display: block;
+        position: absolute;
+        right: 2rem;
+        top: 0;
+        width: 380px;
     }
 
     .builder-preview--step4 {

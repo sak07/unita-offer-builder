@@ -4,7 +4,8 @@ import {
   Output,
   ChangeDetectionStrategy,
   signal,
-  computed
+  computed,
+  effect
 } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
@@ -38,6 +39,14 @@ export class StepThreePricingComponent {
     ) {
       this.isShowRecommendations.set(false);
     }
+
+    // Sync showPriceRange with the active tier's isPriceRange property
+    effect(() => {
+      const tier = this.activeTier;
+      if (tier && tier.isPriceRange !== undefined) {
+        this.showPriceRange.set(!!tier.isPriceRange);
+      }
+    }, { allowSignalWrites: true });
   }
 
   get activeTier() {
