@@ -67,7 +67,7 @@
 .hint-bar {
     display: flex;
     align-items: stretch;
-    background: #e8f4f8;
+    background: #CCE8F3;
     border-radius: 3rem;
     overflow: hidden;
 }
@@ -93,7 +93,7 @@
     align-items: center;
     padding: 0.875rem 1.25rem;
     font-size: 0.875rem;
-    color: #5a9aab;
+    color: #303030;
     font-weight: 400;
 }
 

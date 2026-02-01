@@ -17,7 +17,7 @@
   <div class="hint-bar">
     <div class="hint-label">
       <span class="material-icons" style="font-size: 18px;">lightbulb</span>
-      Hint!
+      <span>Hint!</span>
     </div>
     <div class="hint-text">
       If your offering has tiers or variations, they will be added on the next step. These are details shared by all tiers.
@@ -26,19 +26,30 @@
 
   <!-- Mode Selector: Recommendations vs Editor -->
   <ng-container *ngIf="isShowRecommendations(); else editorView">
-    <!-- Tiers Header -->
-    <div class="tiers-header">
-      <h2 class="tiers-title">Tiers</h2>
-      <div class="offering-type-badge">
-        Selected offering type:
-        <span class="type-value">
-          <span class="material-icons" style="font-size: 16px;">category</span>
-          {{ getOfferingTypeLabel() }} <span class="dropdown-arrow">&#9662;</span>
-        </span>
+    <div class="tiers-section-card">
+      <!-- Tiers Header -->
+      <div class="tiers-header">
+        <h2 class="tiers-title">Tiers</h2>
+        <div class="offering-type-badge">
+          Selected offering type:
+          <div class="type-select-wrap">
+            <svg class="type-select-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            <select
+              class="type-select"
+              [ngModel]="state.offering().type"
+              (ngModelChange)="onOfferingTypeChange($event)"
+              aria-label="Change offering type"
+            >
+              <option *ngFor="let t of offeringTypes" [ngValue]="t">{{ t }}</option>
+            </select>
+            <span class="type-select-arrow" aria-hidden="true">▾</span>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="recommendation-grid">
+      <div class="recommendation-grid">
       <!-- AI Recommendation Card -->
       <div class="recommendation-card">
         <div class="ai-badge">
@@ -48,12 +59,40 @@
         <div class="recommendation-content">
           <h3>Recommended tier structure for <strong>{{ getOfferingTypeLabel() }}s</strong>:</h3>
           <div class="structure-preview">
-            <div class="structure-item">Starter</div>
-            <div class="structure-item active">
-              Professional
-              <span class="material-icons" style="font-size: 14px; color: #fbbf24;">verified</span>
+            <div 
+              class="structure-item" 
+              [class.active]="selectedStructureIndex() === 0"
+              (click)="selectStructureItem(0)"
+              role="button"
+              tabindex="0"
+              (keydown.enter)="selectStructureItem(0)"
+              (keydown.space)="selectStructureItem(0); $event.preventDefault()"
+            >
+              Starter
             </div>
-            <div class="structure-item">Enterprise</div>
+            <div 
+              class="structure-item" 
+              [class.active]="selectedStructureIndex() === 1"
+              (click)="selectStructureItem(1)"
+              role="button"
+              tabindex="0"
+              (keydown.enter)="selectStructureItem(1)"
+              (keydown.space)="selectStructureItem(1); $event.preventDefault()"
+            >
+              Professional
+              <img src="assets/professional.png" alt="" class="structure-item-icon" aria-hidden="true" />
+            </div>
+            <div 
+              class="structure-item" 
+              [class.active]="selectedStructureIndex() === 2"
+              (click)="selectStructureItem(2)"
+              role="button"
+              tabindex="0"
+              (keydown.enter)="selectStructureItem(2)"
+              (keydown.space)="selectStructureItem(2); $event.preventDefault()"
+            >
+              Enterprise
+            </div>
           </div>
           <p class="recommendation-desc">Service packages based on scope, deliverables, and support level.</p>
           <button (click)="useAiStructure()" class="use-structure-btn">Use This Structure</button>
@@ -66,22 +105,34 @@
         <button (click)="manualCreation()" class="add-tier-btn">Add your own Tier</button>
       </div>
     </div>
+    </div>
   </ng-container>
 
   <ng-template #editorView>
-    <!-- Tiers Header -->
-    <div class="tiers-header">
-      <h2 class="tiers-title">Tiers</h2>
-      <div class="offering-type-badge">
-        Selected offering type:
-        <span class="type-value">
-          <span class="material-icons" style="font-size: 16px;">category</span>
-          {{ getOfferingTypeLabel() }} <span class="dropdown-arrow">&#9662;</span>
-        </span>
+    <div class="tiers-section-card">
+      <!-- Tiers Header -->
+      <div class="tiers-header">
+        <h2 class="tiers-title">Tiers</h2>
+        <div class="offering-type-badge">
+          Selected offering type:
+          <div class="type-select-wrap">
+            <svg class="type-select-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            <select
+              class="type-select"
+              [ngModel]="state.offering().type"
+              (ngModelChange)="onOfferingTypeChange($event)"
+              aria-label="Change offering type"
+            >
+              <option *ngFor="let t of offeringTypes" [ngValue]="t">{{ t }}</option>
+            </select>
+            <span class="type-select-arrow" aria-hidden="true">▾</span>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="editor-card">
+      <div class="editor-card">
       <!-- Tier Tabs -->
       <div class="editor-header">
         <div class="tier-tabs">
@@ -438,6 +489,7 @@
           Delete Tier
         </button>
       </div>
+    </div>
     </div>
   </ng-template>
 </div>

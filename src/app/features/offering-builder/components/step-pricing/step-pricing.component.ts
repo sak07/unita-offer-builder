@@ -8,6 +8,7 @@ import {
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
 import { BuilderStateService } from "../../services/builder-state.service";
+import { OfferingType } from "../../interfaces/offering.interface";
 
 @Component({
   selector: 'app-step-pricing',
@@ -21,10 +22,15 @@ export class StepPricingComponent {
   @Output() next = new EventEmitter<void>();
   @Output() back = new EventEmitter<void>();
   @Output() openPreview = new EventEmitter<void>();
+  @Output() goToStep1 = new EventEmitter<void>();
 
   activeTierIndex = signal(0);
   isShowRecommendations = signal(true);
   showPriceRange = signal(false);
+  /** Which structure item is selected in the recommendation preview (0=Starter, 1=Professional, 2=Enterprise). */
+  selectedStructureIndex = signal(1);
+
+  offeringTypes: OfferingType[] = ["Product", "Service", "Subscription"];
 
   constructor(public state: BuilderStateService) {
     // If tiers already exist (more than 1 or first one is filled), don't show recommendations
@@ -38,6 +44,12 @@ export class StepPricingComponent {
 
   get activeTier() {
     return this.state.offering().tiers[this.activeTierIndex()];
+  }
+
+  onOfferingTypeChange(type: OfferingType | null): void {
+    if (!type) return;
+    this.state.updateOffering({ type, productType: type === "Product" ? null : undefined });
+    this.goToStep1.emit();
   }
 
   getOfferingTypeLabel(): string {
@@ -89,10 +101,17 @@ export class StepPricingComponent {
 
     this.state.updateOffering({ tiers: aiTiers });
     this.isShowRecommendations.set(false);
-    this.activeTierIndex.set(1); // Default to Professional
+    this.activeTierIndex.set(this.selectedStructureIndex());
+  }
+
+  selectStructureItem(index: number) {
+    this.selectedStructureIndex.set(index);
   }
 
   manualCreation() {
+    if (this.state.offering().tiers.length === 0) {
+      this.state.addTier();
+    }
     this.isShowRecommendations.set(false);
   }
 
@@ -104,10 +123,7 @@ export class StepPricingComponent {
     const tierId = this.activeTier.id;
     this.state.removeTier(tierId);
     this.activeTierIndex.set(0);
-
-    if (this.state.offering().tiers.length === 0) {
-      this.state.addTier();
-    }
+    this.isShowRecommendations.set(true);
   }
 
   get yearlyOriginalPrice() {

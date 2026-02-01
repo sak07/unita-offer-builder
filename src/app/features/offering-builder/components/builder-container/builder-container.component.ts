@@ -51,6 +51,10 @@ export class BuilderContainerComponent {
         this.currentStep.update((s: number) => Math.max(s - 1, 1));
     }
 
+    goToStep(step: number) {
+        this.currentStep.set(step);
+    }
+
     togglePreviewDialog() {
         this.showPreviewDialog.update((v: boolean) => !v);
     }

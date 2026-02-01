@@ -198,16 +198,16 @@
 }
 
 .color-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 12px;
-  max-width: 440px;
+  max-width: 100%;
 }
 
 .color-swatch {
-  aspect-ratio: 1;
-  max-width: 100px;
-  border-radius: 12px;
+  width: 160px;
+  height: 100px;
+  border-radius: 8px;
   cursor: pointer;
   display: flex;
   align-items: center;

@@ -21,11 +21,11 @@ export class StepMediaComponent implements OnDestroy {
   private galleryObjectUrls: (string | null)[] = [null, null];
 
   colors = [
-    { name: 'Red', value: '#A93535', gradient: 'linear-gradient(135deg, #A93535 0%, #8B2D2D 100%)' },
-    { name: 'Orange', value: '#C13E26', gradient: 'linear-gradient(135deg, #C13E26 0%, #A0331F 100%)' },
-    { name: 'Green', value: '#367E3F', gradient: 'linear-gradient(135deg, #367E3F 0%, #2D6934 100%)' },
-    { name: 'Purple', value: '#A1386B', gradient: 'linear-gradient(135deg, #A1386B 0%, #852E58 100%)' },
-    { name: 'Grey', value: '#525252', gradient: 'linear-gradient(135deg, #525252 0%, #444444 100%)' }
+    { name: 'Red', value: '#BE3638', gradient: 'linear-gradient(252.72deg, #BE3638 2.07%, #792145 97.8%)' },
+    { name: 'Orange', value: '#D7432C', gradient: 'linear-gradient(249.59deg, #D7432C 5.93%, #942E1E 95.11%)' },
+    { name: 'Green', value: '#3EA14A', gradient: 'linear-gradient(251.42deg, #3EA14A 0%, #27622D 101.53%)' },
+    { name: 'Purple', value: '#BA437D', gradient: 'linear-gradient(251.42deg, #BA437D 0%, #862957 101.53%)' },
+    { name: 'Grey', value: '#8B8B8B', gradient: 'linear-gradient(251.42deg, #8B8B8B 0%, #424242 101.53%)' }
   ];
 
   constructor(public state: BuilderStateService) { }
@@ -40,7 +40,7 @@ export class StepMediaComponent implements OnDestroy {
       URL.revokeObjectURL(this.thumbnailObjectUrl);
     }
     this.thumbnailObjectUrl = URL.createObjectURL(file);
-    
+
     // Update state
     this.state.updateOffering({ thumbnail: this.thumbnailObjectUrl });
     input.value = '';
@@ -54,7 +54,7 @@ export class StepMediaComponent implements OnDestroy {
 
     // Handle previous URL cleanup if replacing
     if (this.galleryObjectUrls[index]) {
-        URL.revokeObjectURL(this.galleryObjectUrls[index]!);
+      URL.revokeObjectURL(this.galleryObjectUrls[index]!);
     }
 
     const url = URL.createObjectURL(file);
@@ -77,7 +77,7 @@ export class StepMediaComponent implements OnDestroy {
       URL.revokeObjectURL(this.thumbnailObjectUrl);
     }
     this.galleryObjectUrls.forEach(url => {
-        if (url) URL.revokeObjectURL(url);
+      if (url) URL.revokeObjectURL(url);
     });
   }
 }

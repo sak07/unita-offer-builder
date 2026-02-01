@@ -31,7 +31,7 @@
             <ng-container [ngSwitch]="currentStep()">
               <app-step-selection *ngSwitchCase="1" (next)="nextStep()" (openPreview)="togglePreviewDialog()"></app-step-selection>
               <app-step-details *ngSwitchCase="2" (next)="nextStep()" (back)="prevStep()" (openPreview)="togglePreviewDialog()"></app-step-details>
-              <app-step-pricing *ngSwitchCase="3" (next)="nextStep()" (back)="prevStep()" (openPreview)="togglePreviewDialog()"></app-step-pricing>
+              <app-step-pricing *ngSwitchCase="3" (next)="nextStep()" (back)="prevStep()" (openPreview)="togglePreviewDialog()" (goToStep1)="goToStep(1)"></app-step-pricing>
               <app-step-media *ngSwitchCase="4" (finish)="finish()" (back)="prevStep()"></app-step-media>
             </ng-container>
           </div>
